@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 
 export const PROJECT_FILE = "project.yaml";
@@ -27,4 +28,12 @@ export function assertInsideProject(root: string, target: string): string {
 
 export function toPosix(p: string): string {
   return p.split(path.sep).join("/");
+}
+
+/**
+ * Read a text file as the tools see it: UTF-8, no BOM, LF line endings. A Windows checkout with
+ * core.autocrlf turns files into CRLF; prompts, hashes and recordings must not change with it (D-051).
+ */
+export function readText(file: string): string {
+  return fs.readFileSync(file, "utf8").replace(/^﻿/, "").replace(/\r\n?/g, "\n");
 }

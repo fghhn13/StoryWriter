@@ -3,11 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "exports": { ".": "./src/index.ts" },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@sw/core": "*",
     "@sw/llm": "*",
     "@sw/checks": "*",
-    "zod": "4.6.7"
+    "zod": "4.6.7",
+    "yaml": "2.9.1"
   }
 }

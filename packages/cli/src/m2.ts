@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Command } from "commander";
-import { ENDPOINT_STATUSES, type Project, type Snapshot, loadProject, updateObjectFile } from "@sw/core";
+import { ENDPOINT_STATUSES, type Project, type Snapshot, loadProject, readText, updateObjectFile } from "@sw/core";
 import { type TextAxis, estimateCalls, gapBetween, renderReport } from "@sw/checks";
 import { type LlmContext, createContext } from "@sw/llm";
 import {
@@ -246,7 +246,7 @@ export function registerM2(program: Command, projectDir: Dir): void {
     .action(async (id: string, opts: LlmOpts & { opening: string; t: string; title?: string; chars?: string }, cmd: Command) => {
       const p = loadProject(projectDir(cmd));
       const { gen } = contexts(p, opts);
-      const opening = opts.opening.startsWith("@") ? fs.readFileSync(opts.opening.slice(1), "utf8").trim() : opts.opening;
+      const opening = opts.opening.startsWith("@") ? readText(opts.opening.slice(1)).trim() : opts.opening;
       const r = await draftStartSnapshot(p, gen, {
         id,
         t: Number(opts.t),

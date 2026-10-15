@@ -12,7 +12,8 @@ export interface Template {
 }
 
 export function loadTemplate(file: string): Template {
-  const text = fs.readFileSync(file, "utf8").replace(/^﻿/, "");
+  // LF only: a CRLF checkout must not change prompts or recording keys (D-051)
+  const text = fs.readFileSync(file, "utf8").replace(/^﻿/, "").replace(/\r\n?/g, "\n");
   const m = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/.exec(text);
   if (!m) throw new Error(`模板缺少 frontmatter：${file}`);
   const fm = parse(m[1]!) as { id?: string; version?: number };

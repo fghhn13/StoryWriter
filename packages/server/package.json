@@ -1,0 +1,14 @@
+{
+  "name": "@sw/server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "dependencies": {
+    "@sw/core": "*",
+    "@sw/llm": "*",
+    "@sw/checks": "*",
+    "@sw/ops": "*",
+    "vite": "8.3.4"
+  }
+}

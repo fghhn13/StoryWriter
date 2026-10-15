@@ -14,6 +14,14 @@ npm run sw -- init my-project --mapping oc-wiki
 npm run sw -- -p my-project import "<wiki>/characters/tina.md"   # 只读引用；加 --copy 复制成可编辑档案
 ```
 
+## 画布（M4）
+
+```bash
+npm run sw -- -p <项目> serve            # 打开 http://127.0.0.1:4173
+```
+
+横轴是故事时间，纵向是泳道。点快照、桥、伏笔线、间距区域，在右侧栏看字段、检查和操作；所有操作（起点草稿、手写快照、加点、搭桥、大纲 / 正文、检查、接受 / 忽略、插伏笔、重跑过期、导出）都能在界面里做。在编辑器里改文件，画布会自动刷新。
+
 ## M2：搭桥与加点
 
 ```bash

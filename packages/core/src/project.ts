@@ -5,7 +5,7 @@ import path from "node:path";
 import type { z } from "zod";
 import { normalizeEntries } from "./entries";
 import { parseMarkdownFile, parseYamlFile, type YamlSource } from "./frontmatter";
-import { DIRS, PROJECT_FILE, REF_SUFFIX, toPosix } from "./paths";
+import { DIRS, PROJECT_FILE, REF_SUFFIX, readText, toPosix } from "./paths";
 import {
   AcceptanceDoc,
   BridgeFrontmatter,
@@ -101,7 +101,7 @@ export function loadProject(rootDir: string): Project {
   if (!fs.existsSync(cfgPath)) {
     issues.push({ level: "error", file: PROJECT_FILE, message: "缺少 project.yaml" });
   } else {
-    configSource = parseYamlFile(fs.readFileSync(cfgPath, "utf8"));
+    configSource = parseYamlFile(readText(cfgPath));
     for (const e of configSource.syntaxErrors) issues.push({ level: "error", file: PROJECT_FILE, ...e });
     const parsed = ProjectConfig.safeParse(configSource.data ?? {});
     if (parsed.success) config = parsed.data;
@@ -115,7 +115,7 @@ export function loadProject(rootDir: string): Project {
     build: (fm: z.infer<S>, body: string) => T,
   ): Located<T> | undefined {
     const f = rel(file);
-    const src = parseMarkdownFile(fs.readFileSync(file, "utf8"));
+    const src = parseMarkdownFile(readText(file));
     if (!src.hasFrontmatter) {
       issues.push({ level: "error", file: f, line: 1, message: `缺少 frontmatter（文件应以 --- 开头）` });
       return undefined;
@@ -133,7 +133,7 @@ export function loadProject(rootDir: string): Project {
 
   function loadYaml<S extends z.ZodType>(file: string, schema: S): Located<z.infer<S>> | undefined {
     const f = rel(file);
-    const src = parseYamlFile(fs.readFileSync(file, "utf8"));
+    const src = parseYamlFile(readText(file));
     for (const e of src.syntaxErrors) issues.push({ level: "error", file: f, ...e });
     if (src.syntaxErrors.length) return undefined;
     const parsed = schema.safeParse(src.data ?? {});
@@ -202,7 +202,7 @@ function resolveRef(ref: Located<ProfileRef>, baseDir: string, config: ProjectCo
     issues.push({ level: "error", file: ref.file, line: ref.lineOf(["mapping"]), message: `未知的导入映射：${r.mapping}` });
     return undefined;
   }
-  const imp = importWikiPage(fs.readFileSync(ext, "utf8"), mapping);
+  const imp = importWikiPage(readText(ext), mapping);
   const id = r.id ?? imp.id;
   if (!id) {
     issues.push({ level: "error", file: ref.file, message: "外部档案没有 id，请在引用文件里写 id" });

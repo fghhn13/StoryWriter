@@ -97,7 +97,8 @@ export async function generateCandidates(
   const laneSet = new Set(lanes);
   const scopeKeys = new Set(brief.scope.map((s) => s.key));
   const candidates: Candidate[] = out.candidates.map((c, i) => {
-    const id = `${group}-c${i + 1}`;
+    // short ids: the group (which pair, which run) is kept in candidate.group
+    const id = `cand-${group.slice(-6)}-${i + 1}`;
     const dims = Object.fromEntries(input.dims.map((d) => [d, c.dims[d] ?? ""]));
     const touches = c.touches_unknowns.filter((u) => scopeKeys.has(u));
     const char_states = Object.fromEntries(Object.entries(c.char_states).filter(([lane]) => laneSet.has(lane)));

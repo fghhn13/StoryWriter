@@ -11,6 +11,7 @@
     "commander": "15.0.0",
     "@sw/llm": "*",
     "@sw/checks": "*",
-    "@sw/ops": "*"
+    "@sw/ops": "*",
+    "@sw/server": "*"
   }
 }

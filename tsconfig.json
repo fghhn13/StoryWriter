@@ -8,7 +8,15 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
-  "include": ["packages/*/src", "packages/*/test"]
+  "include": [
+    "packages/*/src",
+    "packages/*/test"
+  ],
+  "exclude": [
+    "packages/canvas"
+  ]
 }

@@ -2,8 +2,8 @@
 // A re-run overwrites the result for the same target/axis/character but keeps its history (D-038, D-047).
 import fs from "node:fs";
 import path from "node:path";
-import { type Bridge, type Check, DIRS, type Located, type Project, parseYamlFile, renderYamlFile, toPosix, writeProjectFile } from "@sw/core";
-import type { CheckResult, DiffRow } from "@sw/checks";
+import { type Bridge, type Check, DIRS, type Located, type Project, parseYamlFile, readText, renderYamlFile, toPosix, writeProjectFile } from "@sw/core";
+import { type CheckResult, type DiffRow, FIELD_LABEL } from "@sw/checks";
 
 export function findBridge(p: Project, id: string): Located<Bridge> {
   const b = p.bridges.find((x) => x.value.id === id);
@@ -47,7 +47,9 @@ export function harvestOf(r: CheckResult): HarvestItem[] {
   }
   if (r.axis === "D") {
     const rows = (r.details as { rows?: DiffRow[] } | null)?.rows ?? [];
-    return rows.filter((x) => x.status === "extra").flatMap((x) => x.derived.map((d) => ({ item: d.text, kind: "extra" as const })));
+    return rows
+      .filter((x) => x.status === "extra")
+      .flatMap((x) => x.derived.map((d) => ({ item: `${d.character ? `${d.character} · ` : ""}${FIELD_LABEL[d.field]}：${d.text}`, kind: "extra" as const })));
   }
   return [];
 }
@@ -112,7 +114,7 @@ export function saveCheck(
   const abs = path.join(p.root, rel);
   let history: HistoryEntry[] = [];
   if (fs.existsSync(abs)) {
-    const prev = parseYamlFile(fs.readFileSync(abs, "utf8")).data as { history?: HistoryEntry[] } | undefined;
+    const prev = parseYamlFile(readText(abs)).data as { history?: HistoryEntry[] } | undefined;
     history = Array.isArray(prev?.history) ? prev.history : [];
   }
   const doc = toCheckDoc(target, targetKind, r, inputs, history);
