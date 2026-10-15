@@ -117,3 +117,16 @@ snapshots/ bridges/ threads/ checks/ acceptances/ ─┘
                                               └────────────────────── 快照 B（目标）────────┘
 相邻快照 ─► 轴 F（代码）─► 间距 ≥60 ─► candidates ─► branches/ ─► approve ─► snapshots/
 ```
+
+## M3 新增
+
+| 文件 | 内容 | 规格 |
+|---|---|---|
+| `checks/src/axis-e.ts` + `prompts/axis-e.md` | 伏笔偏差：线作为新事实，逐节点判矛盾 / 泄漏 / 是否兑现 | §5-E，D-045 |
+| `core/src/hash.ts` | 内容 hash | §6-U8 |
+| `ops/src/deps.ts` | 检查的依赖键与 hash、过期扫描 | §6-U8，D-046 |
+| `ops/src/threads.ts` | 插线、埋点之后的节点、跑轴 E | §6-U7 |
+| `ops/src/dispose.ts` | 接受（→ 增量）/ 撤销 / 忽略 / 已修好，写历史 | §6-U6，D-047 D-048 |
+| `ops/src/rerun.ts` | 重跑计划（预计调用数）与执行 | §6-U8，D-049 |
+| `ops/src/export.ts` | 稿件 / 报告 / 收获清单 | §6-U9，D-050 |
+| `cli/src/m3.ts` | `thread` `status` `rerun` `accept` `revoke` `dismiss` `fixed` `export` | |

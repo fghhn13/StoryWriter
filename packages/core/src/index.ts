@@ -7,3 +7,4 @@ export * from "./validate";
 export * from "./wiki-import";
 export * from "./write";
 export * from "./state";
+export * from "./hash";

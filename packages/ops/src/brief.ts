@@ -1,6 +1,5 @@
 // What generation prompts see (spec §3.4 最小注入, §6-U5): the two snapshots and, per character,
 // rules, boundaries, public facts, unknowns and the state at the bridge's start.
-import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,6 +9,7 @@ import {
   type Project,
   type Snapshot,
   anchorEntries,
+  contentHash,
   profileById,
   publicEntries,
   renderState,
@@ -22,7 +22,7 @@ const PROMPTS = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../p
 export const opsTemplate = (id: string): Template => loadTemplate(path.join(PROMPTS, `${id}.md`));
 export const genPrinciples = (): string => fs.readFileSync(path.join(PROMPTS, "principles.md"), "utf8").trim();
 
-export const hash = (s: string): string => crypto.createHash("sha256").update(s).digest("hex").slice(0, 16);
+export const hash = (s: string): string => contentHash(s);
 
 export function findSnapshot(p: Project, id: string, opts: { branches?: boolean } = {}): Snapshot {
   const pool = opts.branches ? [...p.snapshots, ...p.branchSnapshots] : p.snapshots;

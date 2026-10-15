@@ -4,3 +4,8 @@ export * from "./extract";
 export * from "./bridge";
 export * from "./candidates";
 export * from "./snapshots";
+export * from "./deps";
+export * from "./threads";
+export * from "./dispose";
+export * from "./rerun";
+export * from "./export";

@@ -4,6 +4,7 @@ export * from "./axis-a";
 export * from "./axis-b";
 export * from "./axis-c";
 export * from "./axis-d";
+export * from "./axis-e";
 export * from "./axis-f";
 export * from "./run";
 export * from "./report";

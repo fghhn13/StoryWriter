@@ -5,6 +5,7 @@ import { type LlmContext, callStructured, callText } from "@sw/llm";
 import { z } from "zod";
 import { NO_VOICE_NOTE, castOf, characterBriefs, findSnapshot, genPrinciples, hash, opsTemplate, renderSnapshot, voiceSample } from "./brief";
 import { extractDerived, extractInputFor } from "./extract";
+import { bridgeCheckKeys, hashAll } from "./deps";
 import { findBridge, saveCheck } from "./store";
 
 const OutlineOutput = z.object({
@@ -162,8 +163,11 @@ export async function checkBridge(
     run.results.push(await checkAxisD(ctx, { target: to, derived, n }));
   }
 
-  const inputs = { text: hash(text), from: hash(JSON.stringify(from)), to: hash(JSON.stringify(to)) };
-  const saved = run.results.map((r: CheckResult) => saveCheck(p, id, r, inputs));
+  // dependencies are hashed from the project as it was read, so edits made during the run show up as stale
+  const cast = [...new Set([...run.characters, ...extractInputFor(p, b.value).cast.map((c) => c.profile.id)])];
+  const saved = run.results.map((r: CheckResult) =>
+    saveCheck(p, id, r, hashAll(p, bridgeCheckKeys(p, b.value, r.character ? [r.character] : cast, r.axis))),
+  );
   const fresh = findBridge(loadProject(p.root), id);
   updateObjectFile(p.root, fresh.file, { checks: [...new Set([...fresh.value.checks, ...saved.map((s) => s.id)])] });
   return { run, saved, extracted };

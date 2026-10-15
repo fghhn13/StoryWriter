@@ -29,6 +29,19 @@ npm run sw -- -p <项目> start-draft s0 --opening @opening.md
 
 已定事实写成 `{ text: …, secret: true }` 表示"作者知道、人物不知道"：生成时不告诉模型，检查时照常用。`project.yaml` 里写 `voice_sample: voice.md` 可提供声音样本。
 
+## M3：伏笔、处置、重算、导出
+
+```bash
+npm run sw -- -p <项目> thread add th-key --planted s-registered --desc "…" --visibility character --known-by tina   # 插线并跑轴 E
+npm run sw -- -p <项目> status                       # 扫描过期检查（档案、快照、桥、接受改过之后）
+npm run sw -- -p <项目> rerun --stale                # 先看计划和预计调用次数；加 --yes 执行
+npm run sw -- -p <项目> accept <检查> --why "…" [--delta "…"]   # 接受偏差 → 状态增量；sw revoke 撤销
+npm run sw -- -p <项目> dismiss <检查> --why "…"
+npm run sw -- -p <项目> export manuscript|report|harvest --out x.md
+```
+
+夹具 `fixtures/m3-project`：四个快照、三座已定稿的桥。
+
 ## LLM（GPTsAPI 中转站）
 
 复制 `.env.example` 为 `.env`，填 `GPTSAPI_API_KEY`。Base URL 用 `https://api2.gptsapi.net/v1`（`api.gptsapi.net` 从本机连不上）。

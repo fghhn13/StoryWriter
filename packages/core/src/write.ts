@@ -104,3 +104,15 @@ export function freeFileName(root: string, dir: string, base: string, ext = ".md
     if (!fs.existsSync(path.join(root, rel))) return rel;
   }
 }
+
+/** Patch a YAML object file (checks, acceptances) keeping comments; undefined deletes a key. */
+export function updateYamlFile(root: string, relPath: string, patch: Record<string, unknown>): string {
+  const abs = assertInsideProject(root, relPath);
+  const doc = parseDocument(fs.readFileSync(abs, "utf8"));
+  for (const [k, v] of Object.entries(patch)) {
+    if (v === undefined) doc.delete(k);
+    else doc.set(k, doc.createNode(v));
+  }
+  fs.writeFileSync(abs, doc.toString({ lineWidth: 0 }), "utf8");
+  return abs;
+}

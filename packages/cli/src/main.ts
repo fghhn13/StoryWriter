@@ -19,6 +19,7 @@ import {
 import { type RunResult, type TextAxis, estimateCalls, renderReport, runTextChecks } from "@sw/checks";
 import { GptsApiProvider, createContext, loadLlmEnv } from "@sw/llm";
 import { registerM2 } from "./m2";
+import { registerM3 } from "./m3";
 
 const program = new Command();
 program.name("sw").description("故事生成器").option("-p, --project <dir>", "项目文件夹", ".");
@@ -217,6 +218,7 @@ program
   });
 
 registerM2(program, projectDir);
+registerM3(program, projectDir);
 
 const llm = program.command("llm").description("检查 LLM 中转站连通性（GPTsAPI）");
 llm

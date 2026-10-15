@@ -1,0 +1,17 @@
+# M3 夹具：最小夹具的人物 + 四个快照、三座已定稿的桥，用来测伏笔（轴 E）和过期重算。
+name: 第五个人（M3 夹具）
+language: zh
+lanes:
+  - id: world
+    kind: world
+    name: 世界
+  - id: tina
+    kind: character
+    name: Tina
+  - id: ancore
+    kind: character
+    name: 安可
+sampling: 3
+llm:
+  provider: anthropic
+  model: claude-opus-5-5
