@@ -1,0 +1,12 @@
+id: villy-kame
+path: ../../../../../fghn_works/fghn's oc universe/wiki/characters/villy-kame.md
+mapping: oc-wiki
+# 规格 §11 给出、wiki 里没有的边界；只追加在本项目内，不改 wiki（D-012，QUESTIONS 10）
+extra:
+  boundaries:
+    - id: b-suspicion-hidden
+      text: 他对安可的暗中怀疑在场景中不可见。
+      source: story-engine-spec §11
+    - id: b-suspicion-constant
+      text: 怀疑强度不变，不能写他“确认”或“更怀疑”。
+      source: story-engine-spec §11

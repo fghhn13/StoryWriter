@@ -1,0 +1,13 @@
+{
+  "name": "@sw/ops",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "dependencies": {
+    "@sw/core": "*",
+    "@sw/llm": "*",
+    "@sw/checks": "*",
+    "zod": "4.6.7"
+  }
+}

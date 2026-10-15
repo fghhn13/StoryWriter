@@ -1,0 +1,16 @@
+{
+  "name": "@sw/cli",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "sw": "./src/main.ts"
+  },
+  "dependencies": {
+    "@sw/core": "*",
+    "commander": "15.0.0",
+    "@sw/llm": "*",
+    "@sw/checks": "*",
+    "@sw/ops": "*"
+  }
+}

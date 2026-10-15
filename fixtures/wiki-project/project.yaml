@@ -1,0 +1,44 @@
+name: 第五个人（wiki 引用）
+language: zh
+lanes:
+  - id: world
+    kind: world
+    name: 世界
+  - { id: tina, kind: character, name: Tina }
+  - { id: ancore, kind: character, name: 安可 }
+  - { id: villy, kind: character, name: Villy, profile: villy-kame }
+  - { id: alice, kind: character, name: Alice, profile: alice-florence }
+  - { id: maple, kind: character, name: Maple }
+sampling: 3
+llm:
+  provider: anthropic
+  model: claude-opus-5-5
+import_mappings:
+  oc-wiki:
+    core: blockquote
+    sections:
+      - prefix: 核心人格
+        field: traits
+        mode: list
+      - prefix: 写作指南
+        field: heuristics
+        mode: list
+      - prefix: 写作边界
+        field: boundaries
+        mode: list
+      - prefix: 留白
+        field: unknowns
+        mode: list
+      - prefix: 基础档案
+        field: hard_facts
+        mode: table
+      - prefix: 推演说明
+        field: inferred
+        mode: list
+        origin: llm
+      - prefix: 成长弧
+        field: arc_notes
+        mode: list
+    llm_tags:
+      - 推演
+      - Agent 建议

@@ -1,0 +1,17 @@
+# 最小夹具（规格 §11 节选）。不依赖外部 wiki，测试可在任何机器上跑。
+name: 第五个人（最小夹具）
+language: zh
+lanes:
+  - id: world
+    kind: world
+    name: 世界
+  - id: tina
+    kind: character
+    name: Tina
+  - id: ancore
+    kind: character
+    name: 安可
+sampling: 3
+llm:
+  provider: anthropic
+  model: claude-opus-5-5
