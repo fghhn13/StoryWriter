@@ -13,7 +13,8 @@ const REC = path.join(REPO, "fixtures/recordings/m1");
 const MODEL = "claude-opus-5-5";
 
 const scene = (name: string) => {
-  const src = parseMarkdownFile(fs.readFileSync(path.join(MINIMAL, "scenes", name), "utf8"));
+  // recordings are keyed on LF text; a CRLF working copy must not change the request
+  const src = parseMarkdownFile(fs.readFileSync(path.join(MINIMAL, "scenes", name), "utf8").replace(/\r\n/g, "\n"));
   return { text: src.body.trim(), ...(src.data as { from: string; characters: string[] }) };
 };
 const replay = (runTag?: string) => ({ provider: new RecordingProvider(undefined, REC, "replay"), log: new CallLog(), model: MODEL, runTag });
