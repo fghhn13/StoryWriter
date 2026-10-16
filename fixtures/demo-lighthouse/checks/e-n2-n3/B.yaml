@@ -1,0 +1,61 @@
+id: e-n2-n3.B
+target: e-n2-n3
+target_kind: bridge
+axis: B
+score: 0
+confidence: 1
+prediction: 文本所需的前提都应在起点状态中为真
+observed: ""
+evidence: []
+suggestion: ""
+samples:
+  n: 3
+  scores:
+    - 0
+    - 0
+    - 0
+  failed: 0
+status: open
+notes: []
+harvest:
+  - item: 这句话成立需要：沈砚此前贴出过一张招人（向导或船工）的告示，而且时间已经在沈砚上岛之后。
+    kind: unmentioned
+    quote: 告示贴出去的第二天，林夏来了。
+  - item: 这句话成立需要：林夏事先知道沈砚要雇人、雇人做什么，才能不看告示就直接报价。
+    kind: unmentioned
+    quote: 她没看告示，直接报了价
+  - item: 这句话成立需要：林夏清楚镇上各种活计的行情。
+    kind: unmentioned
+    quote: 直接报了价，比镇上任何活计都贵三倍
+  - item: 这句话成立需要：沈砚事先知道林夏熟悉北湾水域。
+    kind: unmentioned
+    quote: 北湾的水我不熟，你熟。
+  - item: 这句话成立需要：沈砚知道眼前的人就是看守人的女儿，或者知道她的身份。
+    kind: unmentioned
+    quote: 北湾的水我不熟，你熟。
+  - item: 这句话成立需要：沈砚手上有一张北湾的旧海图，并且镇子附近有一片叫北湾的水域。
+    kind: unmentioned
+    quote: 他把一张北湾的旧海图推给她
+  - item: 这句话成立需要：沈砚有支付雇工的经费，并且自己有权决定雇人。
+    kind: unmentioned
+    quote: 我按天付钱，天黑之前回来。
+  - item: 这句话成立需要：林夏事先熟知北湾的礁石分布。
+    kind: unmentioned
+    quote: 她早就背得出北湾每一块礁石的位置。
+  - item: 这句话成立需要：有一条可用的船，而且林夏会划船。
+    kind: unmentioned
+    quote: 沈砚记数字，林夏划船。
+inputs:
+  acceptances:linxia@1: 4f53cda18c2baa0c
+  acceptances:shenyan@1: 4f53cda18c2baa0c
+  prior:1: 4f53cda18c2baa0c
+  profile:linxia: a8a906d8177e19f5
+  profile:shenyan: a024a93347e95651
+  snapshot:n2: 846b3527c86b3ede
+  text:e-n2-n3: 3fbdf6af9b211690
+  world-rules: 5b066caa9a73196f
+at: 2026-10-16T11:07:19.270Z
+history:
+  - at: 2026-10-16T11:07:19.270Z
+    action: run
+    score: 0

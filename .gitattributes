@@ -1,0 +1,3 @@
+# Keep LF in the working tree: prompts, content hashes and recorded replays depend on exact text (D-051).
+* text=auto eol=lf
+*.png binary

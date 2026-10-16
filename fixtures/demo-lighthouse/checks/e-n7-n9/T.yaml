@@ -1,0 +1,158 @@
+id: e-n7-n9.T
+target: e-n7-n9
+target_kind: bridge
+axis: T
+score: 100
+confidence: 1
+prediction: |-
+  [c1] 需要：离开的时间不能落在大雪封路的冬季，或者需要一个不违背封路规则的离开条件。
+  [c3] 需要：需要一个让她认为守灯的承诺已经解除或不再成立的理由，而不只是得知真相。
+  [c4] 需要：需要交代她从这份真相里放下了什么，才会觉得轻松。
+  [c5] 需要：需要一个让她消化这件事、并在父女之间完成和解的时刻。
+  [c6] 需要：需要一段让她对这个外来者放下戒备的经历。
+  [c7] 需要：离开时公路必须是可以通行的。
+  [c8] 需要：需要一个林夏让沈砚知道她愿意跟他走的时刻。
+  [c9] 需要：需要交代他的工作为何此时可以结束或离开，以及他为什么愿意把好感付诸行动。
+  [c10] 需要：需要文本先交代他承受的压力，再交代这份压力如何卸下。
+  [c11] 需要：离开时公路必须是可以通行的。
+observed: |-
+  [c1] 世界.world：港务局同意林夏代守到熄灯那天。 → 深冬，林夏坐沈砚的车沿公路离开小镇。（implausible）
+  [c2] linxia.knows：怎么点灯、怎么记航海日志。 → 母亲那场海难是父亲没点灯造成的。（plausible）
+  [c3] linxia.wants：守到最后一天。 → 去城里重新开始。（implausible）
+  [c4] linxia.feels：沉静。 → 轻松。（stretch）
+  [c5] linxia.relationships：linshouyi——开始理解他了。 → linshouyi——原谅了他。（stretch）
+  [c6] linxia.relationships：— → shenyan——信任他。（implausible）
+  [c7] linxia.location：灯塔值班室 → 公路上（implausible）
+  [c8] shenyan.knows：— → 林夏愿意跟他走。（stretch）
+  [c9] shenyan.wants：— → 带她离开。（stretch）
+  [c10] shenyan.feels：— → 如释重负。（stretch）
+  [c11] shenyan.location：— → 公路上（implausible）
+evidence:
+  - quote: 母亲那场海难是父亲没点灯造成的。
+    rule: linxia.u1
+    rule_text: 母亲那场海难的真相。
+    direction: opposite
+    expected: 这条留白应保持未答
+    note: 明示：终点直接把海难的成因写成了确定的事实，回答了永久留白「母亲那场海难的真相」。
+    weight: 2
+    verified: true
+  - quote: 深冬，林夏坐沈砚的车沿公路离开小镇。
+    rule: linxia.u2
+    rule_text: 她最终会不会离开小镇。
+    direction: opposite
+    expected: 这条留白应保持未答
+    note: 明示：终点的世界事实直接写明她离开了小镇。
+    weight: 2
+    verified: true
+  - quote: 第二天就坐沈砚的车走了
+    rule: linxia.u2
+    rule_text: 她最终会不会离开小镇。
+    direction: opposite
+    expected: 这条留白应保持未答
+    note: 明示：概述直接写明她离开了。
+    weight: 2
+    verified: true
+  - quote: 父亲把那晚的事告诉了她
+    rule: linshouyi.u1
+    rule_text: 他那晚为什么没有点灯。
+    direction: opposite
+    expected: 这条留白应保持未答
+    note: 强暗示：父亲亲口讲述那晚的事，强烈暗示他没点灯的原因会在文本中被交代，触及永久留白。
+    weight: 2
+    verified: true
+  - quote: 深冬，林夏坐沈砚的车沿公路离开小镇。
+    rule: world.w1
+    direction: opposite
+    expected: 需要：离开的时间不能落在大雪封路的冬季，或者需要一个不违背封路规则的离开条件。
+    note: 说不通（世界 · world：「港务局同意林夏代守到熄灯那天。」→「深冬，林夏坐沈砚的车沿公路离开小镇。」）世界规则规定冬季大雪封路、没有车能离开，终点却是深冬坐车沿公路离开，概述里也没有交代路为什么能通。
+    weight: 3
+    verified: true
+  - quote: 去城里重新开始。
+    rule: linxia.t2
+    direction: opposite
+    expected: 需要：需要一个让她认为守灯的承诺已经解除或不再成立的理由，而不只是得知真相。
+    note: 说不通（linxia · wants：「守到最后一天。」→「去城里重新开始。」）她对承诺固执、答应的事一定做到，而且以灯塔能否继续亮下去作为判断标准；第二天就放弃代守到熄灯的约定，与这两点相反，概述只交代了得知真相，没有交代她为什么背弃承诺。
+    weight: 3
+    verified: true
+  - quote: 轻松。
+    rule: linxia.h3
+    direction: opposite
+    expected: 需要：需要交代她从这份真相里放下了什么，才会觉得轻松。
+    note: 牵强（linxia · feels：「沉静。」→「轻松。」）刚得知母亲之死与父亲有关，隔天就感到轻松，跨度很大；她向来顾虑说出来会伤人，这种情绪更可能是压抑而不是轻松。
+    weight: 1
+    verified: true
+  - quote: linshouyi——原谅了他。
+    rule: linxia.h2
+    direction: opposite
+    expected: 需要：需要一个让她消化这件事、并在父女之间完成和解的时刻。
+    note: 牵强（linxia · relationships：「linshouyi——开始理解他了。」→「linshouyi——原谅了他。」）得知父亲没点灯与母亲之死相关，一天之内从开始理解走到原谅，概述没有交代原谅的过程。
+    weight: 1
+    verified: true
+  - quote: shenyan——信任他。
+    rule: linxia.t3
+    direction: opposite
+    expected: 需要：需要一段让她对这个外来者放下戒备的经历。
+    note: 说不通（linxia · relationships：「shenyan——信任他。」）她不信任外来者，起点里她和沈砚没有任何关系，概述也没有交代信任从何而来。
+    weight: 3
+    verified: true
+  - quote: 公路上
+    rule: world.w1
+    direction: opposite
+    expected: 需要：离开时公路必须是可以通行的。
+    note: 说不通（linxia · location：「灯塔值班室」→「公路上」）深冬时节公路被雪封住，她不可能坐车在公路上离开。
+    weight: 3
+    verified: true
+  - quote: 林夏愿意跟他走。
+    rule: linxia.t1
+    direction: opposite
+    expected: 需要：需要一个林夏让沈砚知道她愿意跟他走的时刻。
+    note: 牵强（shenyan · knows：「林夏愿意跟他走。」）她寡言、先做后说，概述里也没有她向沈砚表达意愿的环节，他凭什么知道这一点没有交代。
+    weight: 1
+    verified: true
+  - quote: 带她离开。
+    rule: shenyan.h1
+    direction: opposite
+    expected: 需要：需要交代他的工作为何此时可以结束或离开，以及他为什么愿意把好感付诸行动。
+    note: 牵强（shenyan · wants：「带她离开。」）他的决策以工期为准，好感也不表露；在测绘工作中途带她离开，不符合这个判断标准，概述没有交代原因。
+    weight: 1
+    verified: true
+  - quote: 如释重负。
+    direction: opposite
+    expected: 需要：需要文本先交代他承受的压力，再交代这份压力如何卸下。
+    note: 牵强（shenyan · feels：「如释重负。」）起点里没有交代他背负着什么，终点的如释重负缺少前提。
+    weight: 1
+    verified: true
+  - quote: 公路上
+    rule: world.w1
+    direction: opposite
+    expected: 需要：离开时公路必须是可以通行的。
+    note: 说不通（shenyan · location：「公路上」）深冬大雪封路，他的车不可能在公路上驶离小镇。
+    weight: 3
+    verified: true
+suggestion: 把「终点 · world（「深冬，林夏坐沈砚的车沿公路离开小镇。」）」改成「去掉「深冬」，把离开的时间改到大雪封路之前，消除与 world.w1 的冲突，三处位置相关的不合理随之解决（离开本身仍会回答 linxia.u2，需另行斟酌）。」
+samples:
+  n: 3
+  scores:
+    - 100
+    - 100
+    - 100
+  failed: 0
+status: open
+notes: []
+inputs:
+  acceptances:linshouyi@4: 4f53cda18c2baa0c
+  acceptances:linxia@4: 4f53cda18c2baa0c
+  acceptances:shenyan@4: 4f53cda18c2baa0c
+  profile:linshouyi: 4495d1c4b6633e4d
+  profile:linxia: a8a906d8177e19f5
+  profile:shenyan: a024a93347e95651
+  project-unknowns: 27c334cf5fe8f9d5
+  snapshot:n7: 6679628ee88fe5f3
+  snapshot:n9: 94095182ba08bb42
+  summary:e-n7-n9: 2693cfeec0fa7e44
+  world-rules: 5b066caa9a73196f
+at: 2026-10-16T11:06:26.342Z
+history:
+  - at: 2026-10-16T11:06:26.342Z
+    action: run
+    score: 100

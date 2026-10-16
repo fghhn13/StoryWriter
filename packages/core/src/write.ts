@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { parseDocument } from "yaml";
 import { renderMarkdownFile, renderYamlFile } from "./frontmatter";
-import { DIRS, PROJECT_FILE, REF_SUFFIX, assertInsideProject, toPosix } from "./paths";
+import { DIRS, PROJECT_FILE, REF_SUFFIX, assertInsideProject, readText, toPosix } from "./paths";
 import type { ImportedProfile } from "./wiki-import";
 import { BUILTIN_MAPPINGS } from "./wiki-import";
 
@@ -64,7 +64,7 @@ const FM_RE = /^﻿?---\r?\n([\s\S]*?)\r?\n---[ \t]*\r?\n?([\s\S]*)$/;
  */
 export function updateObjectFile(root: string, relPath: string, patch: Record<string, unknown>, body?: string): string {
   const abs = assertInsideProject(root, relPath);
-  const m = FM_RE.exec(fs.readFileSync(abs, "utf8"));
+  const m = FM_RE.exec(readText(abs));
   if (!m) throw new Error(`不是带 frontmatter 的对象文件：${abs}`);
   const doc = parseDocument(m[1]!);
   for (const [k, v] of Object.entries(patch)) {
@@ -92,7 +92,7 @@ export function saveVersion(root: string, dir: string, id: string, relPath: stri
   const taken = fs.existsSync(absDir) ? fs.readdirSync(absDir).map((n) => Number(/^v(\d+)\.md$/.exec(n)?.[1] ?? 0)) : [];
   const v = Math.max(0, ...taken) + 1;
   const rel = toPosix(path.join(vdir, `v${v}.md`));
-  writeProjectFile(root, rel, fs.readFileSync(assertInsideProject(root, relPath), "utf8"));
+  writeProjectFile(root, rel, readText(assertInsideProject(root, relPath)));
   return { v, path: rel };
 }
 
@@ -108,7 +108,7 @@ export function freeFileName(root: string, dir: string, base: string, ext = ".md
 /** Patch a YAML object file (checks, acceptances) keeping comments; undefined deletes a key. */
 export function updateYamlFile(root: string, relPath: string, patch: Record<string, unknown>): string {
   const abs = assertInsideProject(root, relPath);
-  const doc = parseDocument(fs.readFileSync(abs, "utf8"));
+  const doc = parseDocument(readText(abs));
   for (const [k, v] of Object.entries(patch)) {
     if (v === undefined) doc.delete(k);
     else doc.set(k, doc.createNode(v));

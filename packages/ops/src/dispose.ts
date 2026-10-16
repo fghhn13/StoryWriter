@@ -56,7 +56,18 @@ export function acceptCheck(p: Project, id: string, opts: { justification: strin
   writeProjectFile(
     p.root,
     file,
-    renderYamlFile({ id: accId, check: id, character, t, delta, justification: opts.justification.trim(), at: new Date().toISOString(), origin: "author" }),
+    renderYamlFile({
+      id: accId,
+      check: id,
+      character,
+      t,
+      // graph mode: the delta hangs on the edge and flows downstream of it (D-059)
+      ...(p.config.mode === "graph" && c.value.target_kind === "bridge" ? { on: c.value.target } : {}),
+      delta,
+      justification: opts.justification.trim(),
+      at: new Date().toISOString(),
+      origin: "author",
+    }),
   );
   record(p, c, { status: "accepted", justification: opts.justification.trim(), acceptance: accId }, { action: "accept", note: delta });
 

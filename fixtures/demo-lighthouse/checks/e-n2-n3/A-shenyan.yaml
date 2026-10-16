@@ -1,0 +1,108 @@
+id: e-n2-n3.A.shenyan
+target: e-n2-n3
+target_kind: bridge
+axis: A
+character: shenyan
+score: 0
+confidence: 1
+prediction: |-
+  [h1] 按期完成测绘是他当前唯一明确的目标。雇一个熟悉北湾水域的本地人能省下摸索的时间，对工期有利。他大概会先算工期再拍板，不在价格上纠缠，并给出明确的作息与付款规则，保证进度可控。
+  [h2] 如果对话触及他为什么来、为什么选这片海，规则预测他会回避：不解释、不接话，或把话题拉回工作本身，不会主动袒露动机。
+observed: |-
+  [x1] 沈砚算了算工期，说好。
+  [x2] 北湾的水我不熟，你熟。
+  [x3] 他把一张北湾的旧海图推给她
+  [x4] 我按天付钱，天黑之前回来。
+  [x5] 沈砚记数字
+  [x6] 沈砚的笔停了一下，没有回答。
+evidence:
+  - quote: 沈砚算了算工期，说好。
+    rule: h1
+    rule_text: 这件事对工期有利吗？
+    direction: same
+    expected: 按期完成测绘是他当前唯一明确的目标。雇一个熟悉北湾水域的本地人能省下摸索的时间，对工期有利。他大概会先算工期再拍板，不在价格上纠缠，并给出明确的作息与付款规则，保证进度可控。
+    note: 规则预测他会以工期为准、不纠缠价格，文本中他正是先算工期再答应。
+    verified: true
+  - quote: 沈砚算了算工期，说好。
+    rule: t1
+    rule_text: 圆滑、守时，对规则敏感。
+    direction: same
+    expected: 按人格应当：圆滑、守时，对规则敏感。
+    note: 爽快成交、不起冲突，符合圆滑的处事方式。
+    verified: true
+  - quote: 北湾的水我不熟，你熟。
+    rule: h1
+    rule_text: 这件事对工期有利吗？
+    direction: same
+    expected: 按期完成测绘是他当前唯一明确的目标。雇一个熟悉北湾水域的本地人能省下摸索的时间，对工期有利。他大概会先算工期再拍板，不在价格上纠缠，并给出明确的作息与付款规则，保证进度可控。
+    note: 他给出的理由是借对方熟悉水域来提高效率，与工期优先的预测一致。
+    verified: true
+  - quote: 北湾的水我不熟，你熟。
+    rule: t2
+    rule_text: 对林夏有好感，但不表露。
+    direction: same
+    expected: 按人格应当：对林夏有好感，但不表露。
+    note: 他把对林夏的选择完全框定为专业考量，没有流露个人好感。
+    verified: true
+  - quote: 他把一张北湾的旧海图推给她
+    rule: h1
+    rule_text: 这件事对工期有利吗？
+    direction: same
+    expected: 按期完成测绘是他当前唯一明确的目标。雇一个熟悉北湾水域的本地人能省下摸索的时间，对工期有利。他大概会先算工期再拍板，不在价格上纠缠，并给出明确的作息与付款规则，保证进度可控。
+    note: 立即交付资料、推进工作，符合工期优先的预测。
+    verified: true
+  - quote: 我按天付钱，天黑之前回来。
+    rule: t1
+    rule_text: 圆滑、守时，对规则敏感。
+    direction: same
+    expected: 按人格应当：圆滑、守时，对规则敏感。
+    note: 主动设定时间和付款规则，体现守时和对规则的敏感。
+    verified: true
+  - quote: 我按天付钱，天黑之前回来。
+    rule: h1
+    rule_text: 这件事对工期有利吗？
+    direction: same
+    expected: 按期完成测绘是他当前唯一明确的目标。雇一个熟悉北湾水域的本地人能省下摸索的时间，对工期有利。他大概会先算工期再拍板，不在价格上纠缠，并给出明确的作息与付款规则，保证进度可控。
+    note: 用明确的作息安排保证进度可控，与预测一致。
+    verified: true
+  - quote: 沈砚记数字
+    rule: h1
+    rule_text: 这件事对工期有利吗？
+    direction: same
+    expected: 按期完成测绘是他当前唯一明确的目标。雇一个熟悉北湾水域的本地人能省下摸索的时间，对工期有利。他大概会先算工期再拍板，不在价格上纠缠，并给出明确的作息与付款规则，保证进度可控。
+    note: 专注记录测量数据，行为围绕完成工期展开。
+    verified: true
+  - quote: 沈砚的笔停了一下，没有回答。
+    rule: h2
+    rule_text: 他在回避自己来这里的真正原因吗？
+    direction: same
+    expected: 如果对话触及他为什么来、为什么选这片海，规则预测他会回避：不解释、不接话，或把话题拉回工作本身，不会主动袒露动机。
+    note: 话题触及外来者的来意时，他不解释、不接话，与回避的预测一致。
+    verified: true
+  - quote: 沈砚的笔停了一下，没有回答。
+    rule: t2
+    rule_text: 对林夏有好感，但不表露。
+    direction: same
+    expected: 按人格应当：对林夏有好感，但不表露。
+    note: 面对林夏的试探，他没有借机拉近关系或袒露自己，好感仍未表露。
+    verified: true
+suggestion: ""
+samples:
+  n: 3
+  scores:
+    - 0
+    - 0
+    - 0
+  failed: 0
+status: open
+notes: []
+inputs:
+  acceptances:shenyan@1: 4f53cda18c2baa0c
+  profile:shenyan: a024a93347e95651
+  snapshot:n2: 846b3527c86b3ede
+  text:e-n2-n3: 3fbdf6af9b211690
+at: 2026-10-16T11:07:19.268Z
+history:
+  - at: 2026-10-16T11:07:19.268Z
+    action: run
+    score: 0

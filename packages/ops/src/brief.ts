@@ -12,6 +12,7 @@ import {
   contentHash,
   profileById,
   publicEntries,
+  readText,
   renderState,
   stateAt,
 } from "@sw/core";
@@ -20,7 +21,7 @@ import { type Template, loadTemplate } from "@sw/llm";
 
 const PROMPTS = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../prompts");
 export const opsTemplate = (id: string): Template => loadTemplate(path.join(PROMPTS, `${id}.md`));
-export const genPrinciples = (): string => fs.readFileSync(path.join(PROMPTS, "principles.md"), "utf8").trim();
+export const genPrinciples = (): string => readText(path.join(PROMPTS, "principles.md")).trim();
 
 export const hash = (s: string): string => contentHash(s);
 
@@ -124,7 +125,7 @@ export function voiceSample(p: Project): { path: string; text: string } | undefi
   if (!rel) return undefined;
   const abs = path.resolve(p.root, rel);
   if (!fs.existsSync(abs)) throw new Error(`project.yaml 的 voice_sample 指向的文件不存在：${abs}`);
-  return { path: rel, text: fs.readFileSync(abs, "utf8").trim() };
+  return { path: rel, text: readText(abs).trim() };
 }
 
 export const NO_VOICE_NOTE = "没有声音样本：正文风格不可控（在 project.yaml 写 voice_sample 指向一段你自己的文字）";

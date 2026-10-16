@@ -1,0 +1,279 @@
+id: e-n2-n3.D
+target: e-n2-n3
+target_kind: bridge
+axis: D
+score: 100
+confidence: 1
+prediction: |-
+  [world.1] 沈砚雇林夏当向导，按天付钱。
+  [linxia.knows.1] 沈砚测的是北湾水深。
+  [linxia.wants.1] 攒钱，也想知道他在测什么。
+  [linxia.feels] 好奇压过了警惕。
+  [linxia.location] 北湾礁石
+  [linxia.relationships.shenyan] 对 shenyan：比想象中守规矩，还是不信他。
+  [shenyan.knows.1] 北湾水深够停大船。
+  [shenyan.wants.1] 按期完成测绘。
+  [shenyan.wants.2] 多和她说几句话。
+  [shenyan.feels] 轻松。
+  [shenyan.location] 北湾礁石
+  [shenyan.relationships.linxia] 对 linxia：在意，不表露。
+observed: |-
+  [d:world.1] 沈砚坐最后一班渡船上岛，住在邮局楼上。
+  [d:world.2] 沈砚贴出了一张告示。
+  [d:world.3] 林夏以比镇上任何活计贵三倍的价钱受雇于沈砚。
+  [d:world.4] 沈砚按天付钱给林夏，约定天黑之前回来。
+  [d:world.5] 沈砚要测量北湾。
+  [d:world.6] 第一天两人在北湾的礁石上待了七个小时。
+  [d:world.7] 测量时沈砚记数字，林夏划船。
+  [d:linxia.knows.1] 来了个港务局的测绘员。
+  [d:linxia.knows.2] 这个港务局的人要测量北湾。
+  [d:linxia.knows.3] 她背得出北湾每一块礁石的位置。
+  [d:linxia.knows.4] 她父亲说过量海的人都是来拆东西的。
+  [d:linxia.wants.1] 弄清楚一个港务局的人为什么偏偏要量北湾。
+  [d:linxia.feels] 仍然警惕，正在试探沈砚。
+  [d:linxia.location] 从北湾回程的船上
+  [d:linxia.relationships.shenyan] 对 shenyan：他是她的雇主，但她仍把他当作不可信的外来者，用话试探他。
+  [d:shenyan.knows.1] 灯塔还有二十几天熄灭。
+  [d:shenyan.knows.2] 看守人有个女儿。
+  [d:shenyan.knows.3] 他不熟悉北湾的水，林夏熟悉。
+  [d:shenyan.knows.4] 林夏的父亲说过量海的人都是来拆东西的。
+  [d:shenyan.wants.1] 按期完成海岸测绘。
+  [d:shenyan.feels] 表面平静，听到林夏那句话时笔停了一下，没有回答。
+  [d:shenyan.location] 从北湾回程的船上
+  [d:shenyan.relationships.linxia] 对 linxia：他雇她当北湾的向导，接受她的高价，听到她的话时没有回答。
+  [d:shenyan.resources.1] 一张北湾的旧海图。
+evidence:
+  - quote: （到达状态里没有）
+    rule: linxia.knows.1
+    rule_text: 沈砚测的是北湾水深。
+    direction: opposite
+    expected: 目标：沈砚测的是北湾水深。
+    note: 缺失：到达状态只写到她知道他要测量北湾，没有写到测的是水深。
+    weight: 2
+    verified: true
+  - quote: （到达状态里没有）
+    rule: linxia.wants.1
+    rule_text: 攒钱，也想知道他在测什么。
+    direction: opposite
+    expected: 目标：攒钱，也想知道他在测什么。
+    note: 缺失：到达状态只有她想弄清他为什么偏偏量北湾，接近想知道他在测什么，但攒钱这一半没有写到。
+    weight: 2
+    verified: true
+  - quote: 仍然警惕，正在试探沈砚。
+    rule: linxia.feels
+    rule_text: 好奇压过了警惕。
+    direction: opposite
+    expected: 目标：好奇压过了警惕。
+    note: 冲突：目标是好奇压过警惕，到达是仍然警惕、正在试探，主导情绪相反。
+    weight: 3
+    verified: true
+  - quote: 从北湾回程的船上
+    rule: linxia.location
+    rule_text: 北湾礁石
+    direction: opposite
+    expected: 目标：北湾礁石
+    note: 冲突：目标位置是北湾礁石，到达位置是从北湾回程的船上。
+    weight: 3
+    verified: true
+  - quote: （到达状态里没有）
+    rule: linxia.relationships.shenyan
+    rule_text: 对 shenyan：比想象中守规矩，还是不信他。
+    direction: opposite
+    expected: 目标：对 shenyan：比想象中守规矩，还是不信他。
+    note: 缺失：到达状态有她仍不信他，但没有写到她觉得他比想象中守规矩。
+    weight: 2
+    verified: true
+  - quote: （到达状态里没有）
+    rule: shenyan.knows.1
+    rule_text: 北湾水深够停大船。
+    direction: opposite
+    expected: 目标：北湾水深够停大船。
+    note: 缺失：到达状态没有写到沈砚知道北湾水深够停大船。
+    weight: 2
+    verified: true
+  - quote: （到达状态里没有）
+    rule: shenyan.wants.2
+    rule_text: 多和她说几句话。
+    direction: opposite
+    expected: 目标：多和她说几句话。
+    note: 缺失：到达状态只写他听到她的话后没有回答，没有写到他想多和她说话。
+    weight: 2
+    verified: true
+  - quote: 表面平静，听到林夏那句话时笔停了一下，没有回答。
+    rule: shenyan.feels
+    rule_text: 轻松。
+    direction: opposite
+    expected: 目标：轻松。
+    note: 冲突：目标是轻松，到达是表面平静、听到那句话时笔停了一下，暗示有压着的波动，与轻松相悖。
+    weight: 3
+    verified: true
+  - quote: 从北湾回程的船上
+    rule: shenyan.location
+    rule_text: 北湾礁石
+    direction: opposite
+    expected: 目标：北湾礁石
+    note: 冲突：目标位置是北湾礁石，到达位置是从北湾回程的船上。
+    weight: 3
+    verified: true
+  - quote: （到达状态里没有）
+    rule: shenyan.relationships.linxia
+    rule_text: 对 linxia：在意，不表露。
+    direction: opposite
+    expected: 目标：对 linxia：在意，不表露。
+    note: 缺失：到达状态只写了雇佣关系和他没有回答，没有写到他在意她。
+    weight: 2
+    verified: true
+  - quote: 沈砚坐最后一班渡船上岛，住在邮局楼上。
+    rule: d:world.1
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 沈砚贴出了一张告示。
+    rule: d:world.2
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 沈砚要测量北湾。
+    rule: d:world.5
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 第一天两人在北湾的礁石上待了七个小时。
+    rule: d:world.6
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 测量时沈砚记数字，林夏划船。
+    rule: d:world.7
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 来了个港务局的测绘员。
+    rule: d:linxia.knows.1
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 这个港务局的人要测量北湾。
+    rule: d:linxia.knows.2
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 她背得出北湾每一块礁石的位置。
+    rule: d:linxia.knows.3
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 她父亲说过量海的人都是来拆东西的。
+    rule: d:linxia.knows.4
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 弄清楚一个港务局的人为什么偏偏要量北湾。
+    rule: d:linxia.wants.1
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 对 shenyan：他是她的雇主，但她仍把他当作不可信的外来者，用话试探他。
+    rule: d:linxia.relationships.shenyan
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 灯塔还有二十几天熄灭。
+    rule: d:shenyan.knows.1
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 看守人有个女儿。
+    rule: d:shenyan.knows.2
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 他不熟悉北湾的水，林夏熟悉。
+    rule: d:shenyan.knows.3
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 林夏的父亲说过量海的人都是来拆东西的。
+    rule: d:shenyan.knows.4
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+  - quote: 一张北湾的旧海图。
+    rule: d:shenyan.resources.1
+    direction: irrelevant
+    note: 多出：目标快照里没有
+    weight: 0.2
+    verified: true
+suggestion: 改（目标快照 n3）：把 linxia.location 和 shenyan.location 都改为“从北湾回程的船上”，一处改动消除两项位置冲突。
+samples:
+  n: 3
+  scores:
+    - 100
+    - 100
+    - 100
+  failed: 0
+status: open
+notes:
+  - 到达状态多出 16 项，已列入收获清单
+harvest:
+  - item: 世界事实：沈砚坐最后一班渡船上岛，住在邮局楼上。
+    kind: extra
+  - item: 世界事实：沈砚贴出了一张告示。
+    kind: extra
+  - item: 世界事实：沈砚要测量北湾。
+    kind: extra
+  - item: 世界事实：第一天两人在北湾的礁石上待了七个小时。
+    kind: extra
+  - item: 世界事实：测量时沈砚记数字，林夏划船。
+    kind: extra
+  - item: linxia · 知道：来了个港务局的测绘员。
+    kind: extra
+  - item: linxia · 知道：这个港务局的人要测量北湾。
+    kind: extra
+  - item: linxia · 知道：她背得出北湾每一块礁石的位置。
+    kind: extra
+  - item: linxia · 知道：她父亲说过量海的人都是来拆东西的。
+    kind: extra
+  - item: linxia · 想要：弄清楚一个港务局的人为什么偏偏要量北湾。
+    kind: extra
+  - item: linxia · 关系：对 shenyan：他是她的雇主，但她仍把他当作不可信的外来者，用话试探他。
+    kind: extra
+  - item: shenyan · 知道：灯塔还有二十几天熄灭。
+    kind: extra
+  - item: shenyan · 知道：看守人有个女儿。
+    kind: extra
+  - item: shenyan · 知道：他不熟悉北湾的水，林夏熟悉。
+    kind: extra
+  - item: shenyan · 知道：林夏的父亲说过量海的人都是来拆东西的。
+    kind: extra
+  - item: shenyan · 资源：一张北湾的旧海图。
+    kind: extra
+inputs:
+  acceptances:linxia@1: 4f53cda18c2baa0c
+  acceptances:shenyan@1: 4f53cda18c2baa0c
+  profile:linxia: a8a906d8177e19f5
+  profile:shenyan: a024a93347e95651
+  project-unknowns: 27c334cf5fe8f9d5
+  snapshot:n2: 846b3527c86b3ede
+  snapshot:n3: d1b1c5acd52bf0e6
+  text:e-n2-n3: 3fbdf6af9b211690
+at: 2026-10-16T11:07:19.272Z
+history:
+  - at: 2026-10-16T11:07:19.272Z
+    action: run
+    score: 100

@@ -2,7 +2,7 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import fs from "node:fs";
-import type { Axis, Entry, ProjectConfig } from "@sw/core";
+import { type Axis, type Entry, type ProjectConfig, readText } from "@sw/core";
 import { type Template, loadTemplate } from "@sw/llm";
 import { z } from "zod";
 
@@ -12,7 +12,7 @@ export function template(id: string): Template {
   return loadTemplate(path.join(PROMPTS, `${id}.md`));
 }
 export function principles(): string {
-  return fs.readFileSync(path.join(PROMPTS, "principles.md"), "utf8").trim();
+  return readText(path.join(PROMPTS, "principles.md")).trim();
 }
 
 export interface Evidence {

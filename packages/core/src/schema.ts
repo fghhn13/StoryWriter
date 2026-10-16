@@ -2,7 +2,8 @@
 // lists are string lists, unknown keys are preserved (D-002).
 import { z } from "zod";
 
-export const AXES = ["A", "B", "C", "D", "E", "F"] as const;
+// T = transition plausibility, K = constraint conflicts (graph mode, D-060, D-064)
+export const AXES = ["A", "B", "C", "D", "E", "F", "T", "K"] as const;
 export const Axis = z.enum(AXES);
 export type Axis = z.infer<typeof Axis>;
 
@@ -114,8 +115,9 @@ export const ENDPOINT_STATUSES: readonly SnapshotStatus[] = ["approved", "locked
 export const SnapshotFrontmatter = z.looseObject({
   id: z.string().min(1),
   title: z.string().min(1),
-  // any number: a point inserted between t=0 and t=1 gets t=0.5 (D-034)
-  t: z.number(),
+  // any number: a point inserted between t=0 and t=1 gets t=0.5 (D-034).
+  // Graph mode ignores it and derives t from the edges (D-058).
+  t: z.number().default(0),
   t_label: z.string().optional(),
   lanes: z.array(z.string()).default([]),
   world_facts: z.array(z.string()).default([]),
@@ -153,6 +155,8 @@ export const BridgeFrontmatter = z.looseObject({
   id: z.string().min(1),
   from: z.string().min(1),
   to: z.string().min(1),
+  // graph mode: the author's one-line account of what happens on this edge (axis T reads it)
+  summary: z.string().optional(),
   status: z.enum(["empty", "outline", "draft", "revised", "locked"]).default("empty"),
   outline: z.array(z.string()).default([]),
   derived_snapshot: DerivedSnapshot.optional(),
@@ -182,7 +186,7 @@ export type Thread = z.infer<typeof ThreadFrontmatter> & { description: string }
 export const CheckDoc = z.looseObject({
   id: z.string().min(1),
   target: z.string().min(1),
-  target_kind: z.enum(["bridge", "snapshot", "thread"]),
+  target_kind: z.enum(["bridge", "snapshot", "thread", "project"]),
   axis: Axis,
   // per-character axes (A)
   character: z.string().optional(),
@@ -200,7 +204,8 @@ export const CheckDoc = z.looseObject({
     )
     .default([]),
   suggestion: z.string().default(""),
-  samples: z.looseObject({ n: z.number().int().min(1), scores: z.array(z.number()) }).optional(),
+  // n = 0 when there was nothing to ask the model (e.g. fewer than two constraints)
+  samples: z.looseObject({ n: z.number().int().min(0), scores: z.array(z.number()) }).optional(),
   status: z.enum(["open", "accepted", "fixed", "dismissed", "stale"]).default("open"),
   justification: z.string().optional(),
 });
@@ -212,7 +217,9 @@ export const AcceptanceDoc = z.looseObject({
   id: z.string().min(1),
   check: z.string().min(1),
   character: z.string().min(1),
-  t: z.number(),
+  t: z.number().default(0),
+  // graph mode: the edge the deviation was accepted on; applies downstream of it (D-059)
+  on: z.string().optional(),
   delta: z.string().min(1),
   justification: z.string().min(1),
   at: z.string().optional(),
@@ -248,10 +255,14 @@ const DEFAULT_THRESHOLDS: Record<Axis, { warn: number; high: number }> = {
   D: { warn: 35, high: 65 },
   E: { warn: 40, high: 70 },
   F: { warn: 60, high: 80 },
+  T: { warn: 40, high: 70 },
+  K: { warn: 30, high: 60 },
 };
 
 export const ProjectConfig = z.looseObject({
   name: z.string().min(1),
+  // "graph": free canvas, edges between any nodes, t derived from the graph (D-057)
+  mode: z.enum(["timeline", "graph"]).default("timeline"),
   language: z.string().default("zh"),
   lanes: z
     .array(
@@ -282,5 +293,7 @@ export const ProjectConfig = z.looseObject({
   voice_sample: z.string().optional(),
   // project-level unknowns, checked by axis C alongside every character's (spec §5-C)
   unknowns: z.array(EntryInput).default([]),
+  // project-level world rules, a constraint like any profile rule (D-064)
+  world_rules: z.array(EntryInput).default([]),
 });
 export type ProjectConfig = z.infer<typeof ProjectConfig>;

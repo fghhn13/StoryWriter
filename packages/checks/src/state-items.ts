@@ -34,7 +34,7 @@ export function stateItems(s: StateLike, prefix = ""): StateItem[] {
   return out;
 }
 
-const FIELD_LABEL: Record<ItemField, string> = {
+export const FIELD_LABEL: Record<ItemField, string> = {
   world: "世界事实",
   knows: "知道",
   wants: "想要",

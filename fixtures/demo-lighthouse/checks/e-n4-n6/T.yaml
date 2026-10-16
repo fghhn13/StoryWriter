@@ -1,0 +1,68 @@
+id: e-n4-n6.T
+target: e-n4-n6
+target_kind: bridge
+axis: T
+score: 63
+confidence: 0.6
+prediction: |-
+  [c6] 需要：需要有一个让他能认定是林夏所为的线索或推断依据。
+  [c8] 需要：需要一个让他把林夏的信任放到工期和规则之上的理由。
+  [c11] 需要：需要一个让他从被动担心转为主动选择立场的契机。
+observed: |-
+  [c1] 世界.world：新港规划图上，灯塔所在的岬角被标为拆除区。 → 规划图原件被烧，港务局要重测，工期推迟一个月。（plausible）
+  [c2] linxia.knows：— → 工期推迟了。（plausible）
+  [c3] linxia.wants：阻止新港。 → 灯塔多亮一个月。（plausible）
+  [c4] linxia.feels：被骗的愤怒。 → 后怕，但不后悔。（plausible）
+  [c5] linxia.location：邮局楼上 → 灯塔（plausible）
+  [c6] shenyan.knows：林夏看到了图纸。 → 是林夏烧的图纸。（stretch）
+  [c7] shenyan.knows：— → 工期推迟一个月。（plausible）
+  [c8] shenyan.wants：向她解释，又不知道怎么解释。 → 替她瞒下来。（stretch）
+  [c9] shenyan.feels：慌乱。 → 矛盾。（plausible）
+  [c10] shenyan.location：邮局楼上 → 邮局（plausible）
+  [c11] shenyan.relationships：linxia——怕失去她的信任。 → linxia——站在她这边了。（stretch）
+evidence:
+  - quote: 是林夏烧的图纸。
+    direction: opposite
+    expected: 需要：需要有一个让他能认定是林夏所为的线索或推断依据。
+    note: 牵强（shenyan · knows：「林夏看到了图纸。」→「是林夏烧的图纸。」）概述写明烧图时沈砚在码头，不在现场。他确知是林夏烧的，缺少获知的途径。
+    weight: 1
+    verified: true
+  - quote: 替她瞒下来。
+    rule: shenyan.h1
+    direction: opposite
+    expected: 需要：需要一个让他把林夏的信任放到工期和规则之上的理由。
+    note: 牵强（shenyan · wants：「向她解释，又不知道怎么解释。」→「替她瞒下来。」）他的决策规则看重工期，人格上对规则敏感，替毁图者隐瞒与这两点相悖。只有『对林夏有好感』和『怕失去她的信任』能部分支撑，概述只写了『什么都没说』，没有交代他为何做出这个取舍。
+    weight: 1
+    verified: true
+  - quote: linxia——站在她这边了。
+    rule: shenyan.t1
+    direction: opposite
+    expected: 需要：需要一个让他从被动担心转为主动选择立场的契机。
+    note: 牵强（shenyan · relationships：「linxia——怕失去她的信任。」→「linxia——站在她这边了。」）从被动的害怕失去信任，到主动站队、违背他敏感遵守的规则，跨度较大，文本里没有促成这一步的契机。
+    weight: 1
+    verified: true
+suggestion: 把「终点 · shenyan.wants」改成「改成「还没想好要不要替她瞒下来。」」
+samples:
+  n: 3
+  scores:
+    - 63
+    - 49
+    - 63
+  failed: 0
+status: open
+notes: []
+inputs:
+  acceptances:linxia@3: 4f53cda18c2baa0c
+  acceptances:shenyan@3: 4f53cda18c2baa0c
+  profile:linxia: a8a906d8177e19f5
+  profile:shenyan: a024a93347e95651
+  project-unknowns: 27c334cf5fe8f9d5
+  snapshot:n4: 5ba3d7dde65e6be6
+  snapshot:n6: 4f3b202085825233
+  summary:e-n4-n6: 200c21628567db89
+  world-rules: 5b066caa9a73196f
+at: 2026-10-16T11:03:57.229Z
+history:
+  - at: 2026-10-16T11:03:57.229Z
+    action: run
+    score: 63

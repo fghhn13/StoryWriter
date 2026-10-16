@@ -1,0 +1,30 @@
+name: 灯塔熄灭之前（虚拟演示）
+language: zh
+lanes:
+  - id: world
+    kind: world
+    name: 世界
+  - id: linxia
+    kind: character
+    name: 林夏
+  - id: shenyan
+    kind: character
+    name: 沈砚
+  - id: linshouyi
+    kind: character
+    name: 林守义
+sampling: 3
+llm:
+  provider: anthropic
+  model: claude-opus-5-5
+mode: graph
+world_rules:
+  - id: w1
+    text: 小镇只有一条出海公路，冬季大雪封路，没有车能离开。
+  - id: w2
+    text: 灯塔由港务局拨款；停拨后三十天内必须熄灯。
+  - id: w3
+    text: 镇上没有电话信号，只能去邮局发电报。
+unknowns:
+  - id: u1
+    text: 新港最终有没有建成。

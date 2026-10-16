@@ -2,11 +2,11 @@
 import { ENTRY_FIELDS, type Entry, type EntryField, type EntryInput, type EntryOrigin } from "./schema";
 
 export function normalizeEntries(
-  field: EntryField,
+  field: EntryField | { prefix: string },
   inputs: readonly EntryInput[],
   defaultOrigin: EntryOrigin = "profile",
 ): Entry[] {
-  const prefix = ENTRY_FIELDS[field];
+  const prefix = typeof field === "string" ? ENTRY_FIELDS[field] : field.prefix;
   const taken = new Set(inputs.flatMap((e) => (typeof e === "object" && e.id ? [e.id] : [])));
   return inputs.map((input, i) => {
     const obj = typeof input === "string" ? { text: input } : input;
@@ -29,4 +29,9 @@ export function anchorEntries(entries: readonly Entry[]): Entry[] {
 /** Facts a generation prompt may see: secret facts (the character doesn't know them) are withheld (D-033). */
 export function publicEntries(entries: readonly Entry[]): Entry[] {
   return entries.filter((e) => !e.secret);
+}
+
+/** Project-level world rules get ids w1, w2, ... (D-064). */
+export function worldRules(rules: readonly EntryInput[]): Entry[] {
+  return normalizeEntries({ prefix: "w" }, rules);
 }

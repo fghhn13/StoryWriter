@@ -83,7 +83,8 @@ export function validateProject(p: Project): Issue[] {
   // timeline = snapshots/ only; candidates under branches/ are off the line
   const timeline = [...p.snapshots].sort((a, b) => a.value.t - b.value.t);
   const endpoint = (s: Snapshot) => ENDPOINT_STATUSES.includes(s.status);
-  for (let i = 1; i < timeline.length; i++) {
+  const graph = p.config.mode === "graph";
+  for (let i = 1; i < timeline.length && !graph; i++) {
     const a = timeline[i - 1]!;
     const b = timeline[i]!;
     if (a.value.t === b.value.t) {
@@ -100,9 +101,15 @@ export function validateProject(p: Project): Issue[] {
     const to = snapshots.get(v.to)?.value;
     if (!from && missing(snapshots, v.from)) err(br, ["from"], `桥的起点快照不存在：${v.from}`);
     if (!to && missing(snapshots, v.to)) err(br, ["to"], `桥的终点快照不存在：${v.to}`);
-    if (from && !endpoint(from)) err(br, ["from"], `起点快照 ${from.id} 状态为 ${from.status}，只有 approved / locked 能作桥端点`);
-    if (to && !endpoint(to)) err(br, ["to"], `终点快照 ${to.id} 状态为 ${to.status}，只有 approved / locked 能作桥端点`);
-    if (from && to) {
+    if (graph) {
+      // graph mode (D-058): any two nodes, one edge per pair, no self-loops; cycles are reported at load
+      if (v.from === v.to) err(br, ["to"], `边不能连回自己：${v.from}`);
+      const dup = p.bridges.find((x) => x !== br && x.value.from === v.from && x.value.to === v.to);
+      if (dup) err(br, ["to"], `${v.from} → ${v.to} 已经有一条边（${dup.value.id}）`);
+    }
+    if (!graph && from && !endpoint(from)) err(br, ["from"], `起点快照 ${from.id} 状态为 ${from.status}，只有 approved / locked 能作桥端点`);
+    if (!graph && to && !endpoint(to)) err(br, ["to"], `终点快照 ${to.id} 状态为 ${to.status}，只有 approved / locked 能作桥端点`);
+    if (!graph && from && to) {
       if (from.t >= to.t) err(br, ["to"], `桥必须从较早的快照连到较晚的快照（${from.t} → ${to.t}）`);
       const between = timeline.filter((s) => endpoint(s.value) && s.value.t > from.t && s.value.t < to.t);
       if (between.length) {
@@ -136,7 +143,8 @@ export function validateProject(p: Project): Issue[] {
   // ---- checks / acceptances
   const targetExists = { bridge: bridges, snapshot: snapshots, thread: threads } as const;
   for (const c of p.checks) {
-    if (missing(targetExists[c.value.target_kind], c.value.target)) {
+    // project-level checks (axis K) target the constraint set itself
+    if (c.value.target_kind !== "project" && missing(targetExists[c.value.target_kind], c.value.target)) {
       err(c, ["target"], `检查对象不存在：${c.value.target_kind} ${c.value.target}`);
     }
     if (c.value.status === "accepted" && !c.value.justification) warn(c, ["justification"], `已接受的检查应写理由`);

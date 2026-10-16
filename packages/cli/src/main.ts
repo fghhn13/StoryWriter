@@ -10,6 +10,7 @@ import {
   initProject,
   loadProject,
   parseMarkdownFile,
+  readText,
   renderYamlFile,
   resolveMapping,
   validateProject,
@@ -135,7 +136,7 @@ program
     if (!mapping) return program.error(`未知的导入映射：${opts.mapping}`);
     if (opts.id && pages.length > 1) program.error("--id 只能和单个页面一起用");
     for (const page of pages) {
-      const imp = importWikiPage(fs.readFileSync(page, "utf8"), mapping);
+      const imp = importWikiPage(readText(page), mapping);
       const id = opts.id ?? imp.id;
       if (!id) {
         console.error(`跳过 ${page}：页面没有 id，请用 --id 指定`);
@@ -168,7 +169,7 @@ program
   .description("对一段场景文本跑轴 A（人物）、B（连续性）、C（留白）")
   .action(async (scene: string, opts: Record<string, string | undefined>, cmd: Command) => {
     const p = loadProject(projectDir(cmd));
-    const src = parseMarkdownFile(fs.readFileSync(scene, "utf8"));
+    const src = parseMarkdownFile(readText(scene));
     const fm = (src.data ?? {}) as { from?: string; characters?: string[] };
     const from = opts.from ?? fm.from;
     if (!from) return program.error("需要起点快照：--from <id>，或在场景 frontmatter 里写 from");
@@ -219,6 +220,21 @@ program
 
 registerM2(program, projectDir);
 registerM3(program, projectDir);
+
+program
+  .command("serve")
+  .option("--port <n>", "端口", "4173")
+  .option("--host <h>", "监听地址（默认只在本机）", "127.0.0.1")
+  .option("--recordings <dir>", "录制 / 回放目录（SW_LLM_MODE=record|replay 时用）")
+  .option("--no-ui", "只提供 /api（Tauri 桌面窗口用）")
+  .description("打开画布（本地网页）；在编辑器里改文件，画布会自动刷新")
+  .action(async (opts: { port: string; host: string; recordings?: string; ui: boolean }, cmd: Command) => {
+    const { startServer } = await import("@sw/server");
+    const s = await startServer({ root: projectDir(cmd), port: Number(opts.port), host: opts.host, ui: opts.ui, recordings: opts.recordings ? path.resolve(opts.recordings) : undefined });
+    console.log(`画布：${s.url}
+项目：${projectDir(cmd)}
+Ctrl+C 退出`);
+  });
 
 const llm = program.command("llm").description("检查 LLM 中转站连通性（GPTsAPI）");
 llm

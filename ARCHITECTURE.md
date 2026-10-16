@@ -130,3 +130,26 @@ snapshots/ bridges/ threads/ checks/ acceptances/ ─┘
 | `ops/src/rerun.ts` | 重跑计划（预计调用数）与执行 | §6-U8，D-049 |
 | `ops/src/export.ts` | 稿件 / 报告 / 收获清单 | §6-U9，D-050 |
 | `cli/src/m3.ts` | `thread` `status` `rerun` `accept` `revoke` `dismiss` `fixed` `export` | |
+
+## M4 新增
+
+| 位置 | 内容 | 规格 |
+|---|---|---|
+| `packages/server/src/server.ts` | `startServer`：`/api/*` 路由（每个请求重读项目）、SSE（文件变化 / 任务进度）、Vite 中间件 | §7，D-052 D-053 |
+| `packages/server/src/view.ts` | 画布要画的一切：快照、桥、线、检查、间距、缺的桥、过期列表、校验问题 | §7 |
+| `packages/ops/src/edit.ts` | 画布需要的编辑：新建快照 / 桥、YAML 编辑对象、手改大纲正文、确认模型产物、泳道排序 | §7，D-055 D-056 |
+| `packages/canvas/` | React 前端：`Canvas.tsx`（SVG 时间 × 泳道）、`Panel.tsx`（侧栏）、`Checks.tsx`（证据与处置）、`Dialogs.tsx`（各操作的表单） | §7 |
+| `packages/cli` | `sw serve` | |
+
+## 图模式（D-057–D-066）
+
+| 位置 | 内容 |
+|---|---|
+| `core/src/graph.ts` | 图分析：无环检查、最长路径深度作有效 t、祖先 / 后代、路线取边 |
+| `core/src/state.ts` `stateAtNode` / `stateFor` | 图模式下按节点取人物状态（自身或最近祖先）+ 挂在上游边上的接受增量 |
+| `checks/src/axis-t.ts` + `prompts/axis-t.md` | 轴 T · 转变合理性（不看正文） |
+| `checks/src/axis-k.ts` + `prompts/axis-k.md` | 轴 K · 约束冲突（全部约束一起看） |
+| `ops/src/graph.ts` | 节点 / 边增删改、`canvas.yaml`（位置、路线）、边检查、路线分数、路线大纲、图模式重跑 |
+| `ops/src/constraints.ts` | 约束栏：人物 / 世界规则 / 项目留白的增删改（外部档案只改 `extra`），轴 K 落盘 |
+| `server/src/graph-api.ts` | `/api/graph` 视图与图模式接口；检查作为后台任务，经 `/api/events` 推送进度 |
+| `packages/desktop` | Tauri v2 外壳（`src-tauri/src/main.rs` 为选中的项目启动 `sw serve --no-ui`）+ React 侧栏 + Canvas2D 画布（`src/board/`） |
