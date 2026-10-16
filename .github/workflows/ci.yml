@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      # Tests use scripted providers or recorded replays; never reach a real LLM.
+      SW_LLM_MODE: ""
+      GPTSAPI_API_KEY: ""
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+
+  desktop:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - id: has
+        run: |
+          if [ -f packages/desktop/src-tauri/Cargo.toml ]; then echo "tauri=true" >> "$GITHUB_OUTPUT"; else echo "tauri=false" >> "$GITHUB_OUTPUT"; fi
+      - if: steps.has.outputs.tauri == 'true'
+        uses: dtolnay/rust-toolchain@stable
+      - if: steps.has.outputs.tauri == 'true'
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: packages/desktop/src-tauri
+      - if: steps.has.outputs.tauri == 'true'
+        name: Placeholder frontendDist
+        run: |
+          mkdir -p packages/desktop/dist
+          [ -f packages/desktop/dist/index.html ] || echo '<!doctype html><title>StoryWriter</title>' > packages/desktop/dist/index.html
+      - if: steps.has.outputs.tauri == 'true'
+        name: cargo check
+        working-directory: packages/desktop/src-tauri
+        run: cargo check --locked
