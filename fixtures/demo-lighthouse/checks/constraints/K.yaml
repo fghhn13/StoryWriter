@@ -1,0 +1,53 @@
+id: constraints.K
+target: constraints
+target_kind: project
+axis: K
+score: 86
+confidence: 1
+prediction: 约束之间应当一致
+observed: |-
+  矛盾 linshouyi.f2 ↔ linxia.f1
+  约束填了留白 linxia.f3 ↔ linxia.u1
+  张力 shenyan.h2 ↔ shenyan.u1
+evidence:
+  - quote: 林夏是他三十岁那年出生的。
+    rule: linshouyi.f2 ↔ linxia.f1
+    rule_text: 年龄：22 岁。
+    direction: opposite
+    expected: 三个数字改一个：把林守义改为52岁，或把林夏改为28岁，或把出生时父亲的年龄改为三十六岁。
+    note: 矛盾：林守义58岁，林夏在他三十岁那年出生，林夏应为28岁，与她22岁的设定冲突。
+    weight: 3
+    verified: true
+  - quote: 海难那晚父亲没有点灯。
+    rule: linxia.f3 ↔ linxia.u1
+    rule_text: 母亲那场海难的真相。
+    direction: opposite
+    expected: 请作者明确 linxia.u1 所说的“真相”是否不包括点灯这件事，并在留白里写清它指的是哪一部分。
+    note: 约束填了留白：这条事实写定了海难那晚的一个关键情况，可能已经回答了“海难真相”这条留白的一部分，让留白的范围变得含糊。
+    weight: 2
+    verified: true
+  - quote: 他在回避自己来这里的真正原因吗？
+    rule: shenyan.h2 ↔ shenyan.u1
+    rule_text: 他接这份工作是不是为了查父亲的事。
+    direction: opposite
+    expected: 把 shenyan.h2 改成不预设动机的提问，例如“他是否对自己来这里的理由足够诚实？”
+    note: 张力：这条决策规则预设他另有被回避的“真正原因”，容易在写作中让读者偏向这条留白的某种答案。
+    weight: 1
+    verified: true
+suggestion: ""
+samples:
+  n: 3
+  scores:
+    - 86
+    - 86
+    - 86
+  failed: 0
+status: open
+notes: []
+inputs:
+  constraints: 9ee39b603c584c3c
+at: 2026-10-16T10:58:17.445Z
+history:
+  - at: 2026-10-16T10:58:17.445Z
+    action: run
+    score: 86

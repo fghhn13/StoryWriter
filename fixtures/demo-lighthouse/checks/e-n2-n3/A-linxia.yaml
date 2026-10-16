@@ -1,0 +1,136 @@
+id: e-n2-n3.A.linxia
+target: e-n2-n3
+target_kind: bridge
+axis: A
+character: linxia
+score: 0
+confidence: 1
+prediction: |-
+  [h1] 港务局测绘员要量北湾，这件事会不会影响灯塔，她还不知道。按这条规则，她会先弄清楚这件事和灯塔有没有关系，所以会主动靠近他、跟在旁边看，而不是躲开。
+  [h2] 开头状态里，她想弄清他来干什么，这是她自己的好奇。父亲对外来者的戒心也会影响她。预测她出于自己的好奇行动，但带着父亲的立场去试探，不会做违背父亲的事。
+  [h3] 如果直接质问可能伤人或撕破脸，她会忍着不说。真要开口，她会用间接或借来的说法去试探，不当面指控。
+observed: |-
+  [x1] 她没看告示，直接报了价，比镇上任何活计都贵三倍
+  [x2] 你不还价？
+  [x3] 林夏没接海图。
+  [x4] 沈砚记数字，林夏划船。
+  [x5] 我爸说，量海的人都是来拆东西的。
+evidence:
+  - quote: 她没看告示，直接报了价，比镇上任何活计都贵三倍
+    rule: t1
+    rule_text: 寡言，先做后说。
+    direction: same
+    expected: 按人格应当：寡言，先做后说。
+    note: 规则预测她先做后说；她没多解释，直接上门报价，与预测一致。
+    verified: true
+  - quote: 她没看告示，直接报了价，比镇上任何活计都贵三倍
+    rule: t3
+    rule_text: 不信任外来者，但忍不住好奇。
+    direction: same
+    expected: 按人格应当：不信任外来者，但忍不住好奇。
+    note: 规则预测她既不信任又忍不住好奇；她开出高价表示戒备，却还是主动接近，与预测一致。
+    verified: true
+  - quote: 她没看告示，直接报了价，比镇上任何活计都贵三倍
+    rule: h1
+    rule_text: 这件事会让灯塔继续亮下去吗？
+    direction: same
+    expected: 港务局测绘员要量北湾，这件事会不会影响灯塔，她还不知道。按这条规则，她会先弄清楚这件事和灯塔有没有关系，所以会主动靠近他、跟在旁边看，而不是躲开。
+    note: 规则预测她会靠近以弄清此事是否影响灯塔；她接下这份活，得以跟在他身边观察，与预测一致。
+    verified: true
+  - quote: 她没看告示，直接报了价，比镇上任何活计都贵三倍
+    rule: h2
+    rule_text: 她是在替父亲做决定，还是替自己？
+    direction: same
+    expected: 开头状态里，她想弄清他来干什么，这是她自己的好奇。父亲对外来者的戒心也会影响她。预测她出于自己的好奇行动，但带着父亲的立场去试探，不会做违背父亲的事。
+    note: 规则预测她出于自己的好奇行动；文本写明“她只是想知道”，与预测一致。
+    verified: true
+  - quote: 你不还价？
+    rule: t3
+    rule_text: 不信任外来者，但忍不住好奇。
+    direction: same
+    expected: 按人格应当：不信任外来者，但忍不住好奇。
+    note: 规则预测她对外来者有戒心；她对他不还价起疑，与预测一致。
+    verified: true
+  - quote: 你不还价？
+    rule: t1
+    rule_text: 寡言，先做后说。
+    direction: same
+    expected: 按人格应当：寡言，先做后说。
+    note: 规则预测她寡言；她只问了一句短话，与预测一致。
+    verified: true
+  - quote: 林夏没接海图。
+    rule: t3
+    rule_text: 不信任外来者，但忍不住好奇。
+    direction: same
+    expected: 按人格应当：不信任外来者，但忍不住好奇。
+    note: 规则预测她不信任外来者；她不接他递来的东西，与预测一致。
+    verified: true
+  - quote: 林夏没接海图。
+    rule: t1
+    rule_text: 寡言，先做后说。
+    direction: same
+    expected: 按人格应当：寡言，先做后说。
+    note: 规则预测她用行动代替言语；她没开口，只是不接，与预测一致。
+    verified: true
+  - quote: 沈砚记数字，林夏划船。
+    rule: t2
+    rule_text: 对承诺固执，答应的事一定做到。
+    direction: same
+    expected: 按人格应当：对承诺固执，答应的事一定做到。
+    note: 规则预测她答应的事一定做到；她报价成交后如约出工，与预测一致。
+    verified: true
+  - quote: 沈砚记数字，林夏划船。
+    rule: t1
+    rule_text: 寡言，先做后说。
+    direction: same
+    expected: 按人格应当：寡言，先做后说。
+    note: 规则预测她先做后说；七个小时里她只管划船，与预测一致。
+    verified: true
+  - quote: 我爸说，量海的人都是来拆东西的。
+    rule: t1
+    rule_text: 寡言，先做后说。
+    direction: same
+    expected: 按人格应当：寡言，先做后说。
+    note: 规则预测她先做后说；她做完一整天的活才开口，与预测一致。
+    verified: true
+  - quote: 我爸说，量海的人都是来拆东西的。
+    rule: h1
+    rule_text: 这件事会让灯塔继续亮下去吗？
+    direction: same
+    expected: 港务局测绘员要量北湾，这件事会不会影响灯塔，她还不知道。按这条规则，她会先弄清楚这件事和灯塔有没有关系，所以会主动靠近他、跟在旁边看，而不是躲开。
+    note: 规则预测她要弄清此事是否威胁灯塔；她借“拆东西”这个说法试探来意，与预测一致。
+    verified: true
+  - quote: 我爸说，量海的人都是来拆东西的。
+    rule: h2
+    rule_text: 她是在替父亲做决定，还是替自己？
+    direction: same
+    expected: 开头状态里，她想弄清他来干什么，这是她自己的好奇。父亲对外来者的戒心也会影响她。预测她出于自己的好奇行动，但带着父亲的立场去试探，不会做违背父亲的事。
+    note: 规则预测她带着父亲的立场去试探、不违背父亲；她搬出父亲的话，与预测一致。
+    verified: true
+  - quote: 我爸说，量海的人都是来拆东西的。
+    rule: h3
+    rule_text: 说出来会不会让别人受伤？
+    direction: same
+    expected: 如果直接质问可能伤人或撕破脸，她会忍着不说。真要开口，她会用间接或借来的说法去试探，不当面指控。
+    note: 规则预测她不当面指控，会用间接说法；她借父亲之口泛指“量海的人”，没有直接质问他，与预测一致。
+    verified: true
+suggestion: ""
+samples:
+  n: 3
+  scores:
+    - 0
+    - 0
+    - 0
+  failed: 0
+status: open
+notes: []
+inputs:
+  acceptances:linxia@1: 4f53cda18c2baa0c
+  profile:linxia: a8a906d8177e19f5
+  snapshot:n2: 846b3527c86b3ede
+  text:e-n2-n3: 3fbdf6af9b211690
+at: 2026-10-16T11:07:19.265Z
+history:
+  - at: 2026-10-16T11:07:19.265Z
+    action: run
+    score: 0

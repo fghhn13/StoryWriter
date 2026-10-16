@@ -1,0 +1,48 @@
+id: e-n2-n3.T
+target: e-n2-n3
+target_kind: bridge
+axis: T
+score: 0
+confidence: 1
+prediction: ""
+observed: |-
+  [c1] 世界.world：— → 沈砚雇林夏当向导，按天付钱。（plausible）
+  [c2] linxia.knows：来了个港务局的测绘员。 → 沈砚测的是北湾水深。（plausible）
+  [c3] linxia.wants：弄清楚他来干什么。 → 攒钱，也想知道他在测什么。（plausible）
+  [c4] linxia.feels：警惕。 → 好奇压过了警惕。（plausible）
+  [c5] linxia.relationships：外来者，不可信。 → 比想象中守规矩，还是不信他。（plausible）
+  [c6] linxia.location：码头 → 北湾礁石（plausible）
+  [c7] shenyan.knows：灯塔还有二十几天熄灭。；看守人有个女儿。 → 北湾水深够停大船。（plausible）
+  [c8] shenyan.wants：按期完成海岸测绘。 → 按期完成测绘。；多和她说几句话。（plausible）
+  [c9] shenyan.feels：平静，有点冷。 → 轻松。（plausible）
+  [c10] shenyan.relationships：第一眼就记住了她。 → 在意，不表露。（plausible）
+  [c11] shenyan.location：码头 → 北湾礁石（plausible）
+evidence: []
+suggestion: ""
+samples:
+  n: 3
+  scores:
+    - 0
+    - 0
+    - 0
+  failed: 0
+status: open
+notes: []
+inputs:
+  acceptances:linxia@1: 4f53cda18c2baa0c
+  acceptances:shenyan@1: 4f53cda18c2baa0c
+  profile:linxia: a8a906d8177e19f5
+  profile:shenyan: a024a93347e95651
+  project-unknowns: 27c334cf5fe8f9d5
+  snapshot:n2: 846b3527c86b3ede
+  snapshot:n3: d1b1c5acd52bf0e6
+  summary:e-n2-n3: 8f98eaff4525a01a
+  world-rules: 5b066caa9a73196f
+at: 2026-10-16T11:06:44.845Z
+history:
+  - at: 2026-10-16T11:00:05.803Z
+    action: run
+    score: 0
+  - at: 2026-10-16T11:06:44.845Z
+    action: rerun
+    score: 0

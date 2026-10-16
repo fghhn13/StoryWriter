@@ -1,0 +1,21 @@
+# 图模式演示（D-057）：minimal-project 的人物 + 一张小图。
+name: 第五个人（图模式演示）
+mode: graph
+language: zh
+lanes:
+  - id: world
+    kind: world
+    name: 世界
+  - id: tina
+    kind: character
+    name: Tina
+  - id: ancore
+    kind: character
+    name: 安可
+sampling: 3
+llm:
+  provider: anthropic
+  model: claude-opus-5-5
+world_rules:
+  - id: w1
+    text: 学生会周五收回人数不足的社团活动室。

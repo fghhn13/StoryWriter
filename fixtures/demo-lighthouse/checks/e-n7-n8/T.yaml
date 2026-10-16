@@ -1,0 +1,62 @@
+id: e-n7-n8.T
+target: e-n7-n8
+target_kind: bridge
+axis: T
+score: 49
+confidence: 0.12
+prediction: |-
+  [c9] 需要：需要文本先建立林夏与沈砚之间已有一定接触，让她愿意放他进来。
+  [c10] 需要：需要此前有一段让他对林夏的好感明显压过工期考量的经历。
+observed: |-
+  [c1] 世界.world：港务局同意林夏代守到熄灯那天。 → 三十天到期，灯塔熄灭。（plausible）
+  [c2] linxia.knows：怎么点灯、怎么记航海日志。 → 灯塔今晚熄灭。（plausible）
+  [c3] linxia.wants：守到最后一天。 → 亲手关掉它。（plausible）
+  [c4] linxia.feels：沉静。 → 平静的悲伤。（plausible）
+  [c5] linxia.location：灯塔值班室 → 灯室（plausible）
+  [c6] shenyan.knows：— → 灯塔今晚熄灭。（plausible）
+  [c7] shenyan.wants：— → 陪她看最后一次。（plausible）
+  [c8] shenyan.feels：— → 说不清。（plausible）
+  [c9] shenyan.location：— → 灯室（stretch）
+  [c10] shenyan.relationships：— → linxia——想留下来。（stretch）
+evidence:
+  - quote: 灯室
+    rule: linxia.t3
+    direction: opposite
+    expected: 需要：需要文本先建立林夏与沈砚之间已有一定接触，让她愿意放他进来。
+    note: 牵强（shenyan · location：「灯室」）概述只写他敲开了门。林夏不信任外来者，在最后一夜让他进入灯室，需要她的好奇压过戒备，但文本还没有交代两人此前有过接触。
+    weight: 1
+    verified: true
+  - quote: linxia——想留下来。
+    rule: shenyan.h1
+    direction: opposite
+    expected: 需要：需要此前有一段让他对林夏的好感明显压过工期考量的经历。
+    note: 牵强（shenyan · relationships：「linxia——想留下来。」）他圆滑、看重工期和规则，好感也一向不表露。直接出现想留下来的关系定位，跨度很大，起点和概述都没有铺垫。
+    weight: 1
+    verified: true
+suggestion: 把「终点 · shenyan.relationships」改成「把「linxia——想留下来。」改成更克制、不越过他已建立性格的表述，例如只写对她有好感但没有说出口。这样不需要额外铺垫；进灯室的牵强之处也会因此减轻。」
+samples:
+  n: 3
+  scores:
+    - 63
+    - 49
+    - 28
+  failed: 0
+status: open
+notes: []
+inputs:
+  acceptances:linshouyi@4: 4f53cda18c2baa0c
+  acceptances:linxia@4: 4f53cda18c2baa0c
+  acceptances:shenyan@4: 4f53cda18c2baa0c
+  profile:linshouyi: 4495d1c4b6633e4d
+  profile:linxia: a8a906d8177e19f5
+  profile:shenyan: a024a93347e95651
+  project-unknowns: 27c334cf5fe8f9d5
+  snapshot:n7: 6679628ee88fe5f3
+  snapshot:n8: 246a732a76ca9d27
+  summary:e-n7-n8: 3fc93a7fe9b393f7
+  world-rules: 5b066caa9a73196f
+at: 2026-10-16T11:05:42.182Z
+history:
+  - at: 2026-10-16T11:05:42.182Z
+    action: run
+    score: 49

@@ -10,6 +10,7 @@ import {
   normalizeEntries,
   profileById,
   updateYamlFile,
+  worldRules,
 } from "@sw/core";
 
 /** Current hash of one dependency key; undefined when the object no longer exists. */
@@ -55,6 +56,16 @@ export function currentHash(p: Project, key: string): string | undefined {
     }
     case "project-unknowns":
       return contentHash(normalizeEntries("unknowns", p.config.unknowns));
+    case "summary": {
+      // graph mode: an edge's one-line plot summary (axis T input)
+      const b = p.bridges.find((x) => x.value.id === id)?.value;
+      return b ? contentHash(b.summary ?? "") : undefined;
+    }
+    case "world-rules":
+      return contentHash(worldRules(p.config.world_rules));
+    case "constraints":
+      // axis K reads every constraint at once
+      return contentHash([p.profiles.map((x) => x.value), worldRules(p.config.world_rules), normalizeEntries("unknowns", p.config.unknowns)]);
     default:
       return undefined;
   }
@@ -70,10 +81,12 @@ export function hashAll(p: Project, keys: Iterable<string>): Record<string, stri
 export function bridgeCheckKeys(p: Project, bridge: { id: string; from: string; to: string }, characters: string[], axis: string): string[] {
   const from = p.snapshots.find((s) => s.value.id === bridge.from)?.value;
   const t = from?.t ?? 0;
-  const keys = [`text:${bridge.id}`, `snapshot:${bridge.from}`];
+  const keys = axis === "T" ? [`snapshot:${bridge.from}`] : [`text:${bridge.id}`, `snapshot:${bridge.from}`];
   if (axis === "D") keys.push(`snapshot:${bridge.to}`);
   if (axis === "B") keys.push(`prior:${t}`);
-  if (axis === "C" || axis === "D") keys.push("project-unknowns");
+  if (axis === "C" || axis === "D" || axis === "T") keys.push("project-unknowns");
+  if (axis === "T") keys.push(`snapshot:${bridge.to}`, `summary:${bridge.id}`, "world-rules");
+  if (axis === "B" && p.config.mode === "graph") keys.push("world-rules");
   for (const c of characters) keys.push(`profile:${c}`, `acceptances:${c}@${t}`);
   return keys;
 }

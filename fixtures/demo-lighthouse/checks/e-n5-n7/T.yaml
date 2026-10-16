@@ -1,0 +1,58 @@
+id: e-n5-n7.T
+target: e-n5-n7
+target_kind: bridge
+axis: T
+score: 49
+confidence: 1
+prediction: |-
+  [c4] 需要：需要交代她对父亲病情的恐惧如何被安放，或者说明是承担守灯这件事本身让她稳下来。
+  [c5] 需要：需要一个让她站到父亲位置上感受守灯分量的契机，文本里还没有。
+observed: |-
+  [c1] 世界.world：大雪封路，镇上的医生只能用电报问城里的医院。 → 港务局同意林夏代守到熄灯那天。（plausible）
+  [c2] linxia.knows：父亲病得很重，出不了岛。 → 怎么点灯、怎么记航海日志。（plausible）
+  [c3] linxia.wants：父亲活下来。；灯塔不能没人守。 → 守到最后一天。（plausible）
+  [c4] linxia.feels：害怕。 → 沉静。（stretch）
+  [c5] linxia.relationships：— → linshouyi——开始理解他了。（stretch）
+  [c6] linxia.location：灯塔 → 灯塔值班室（plausible）
+  [c7] linshouyi.knows：自己守不动了。 → 女儿接手了。（plausible）
+  [c8] linshouyi.wants：女儿别守这座灯。 → 女儿别重复他的一辈子。（plausible）
+  [c9] linshouyi.feels：虚弱，内疚。 → 复杂。（plausible）
+evidence:
+  - quote: 沉静。
+    rule: linxia.t1
+    direction: opposite
+    expected: 需要：需要交代她对父亲病情的恐惧如何被安放，或者说明是承担守灯这件事本身让她稳下来。
+    note: 牵强（linxia · feels：「害怕。」→「沉静。」）'先做后说'的人在行动中找到定力说得通，但父亲病重这个恐惧源在终点并未消除，一步变成沉静略显跳跃。
+    weight: 1
+    verified: true
+  - quote: linshouyi——开始理解他了。
+    direction: opposite
+    expected: 需要：需要一个让她站到父亲位置上感受守灯分量的契机，文本里还没有。
+    note: 牵强（linxia · relationships：「linshouyi——开始理解他了。」）概述只写了发电报，没有父女之间的交流，也没有她体会父亲处境的契机，理解从何而来缺少依据。
+    weight: 1
+    verified: true
+suggestion: 把「终点 · linxia.relationships」改成「改成与起点情绪同调、不预设理解已经发生的表述，例如'linshouyi——有话想对他说，还没说出口。'；或者在概述里补一句交代她理解父亲的契机。」
+samples:
+  n: 3
+  scores:
+    - 49
+    - 49
+    - 49
+  failed: 0
+status: open
+notes: []
+inputs:
+  acceptances:linshouyi@3: 4f53cda18c2baa0c
+  acceptances:linxia@3: 4f53cda18c2baa0c
+  profile:linshouyi: 4495d1c4b6633e4d
+  profile:linxia: a8a906d8177e19f5
+  project-unknowns: 27c334cf5fe8f9d5
+  snapshot:n5: b2751f0d95da4e8d
+  snapshot:n7: 6679628ee88fe5f3
+  summary:e-n5-n7: 5c521cc92fdc514a
+  world-rules: 5b066caa9a73196f
+at: 2026-10-16T11:04:33.881Z
+history:
+  - at: 2026-10-16T11:04:33.881Z
+    action: run
+    score: 49

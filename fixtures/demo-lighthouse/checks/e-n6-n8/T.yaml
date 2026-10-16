@@ -1,0 +1,61 @@
+id: e-n6-n8.T
+target: e-n6-n8
+target_kind: bridge
+axis: T
+score: 49
+confidence: 0.39
+prediction: |-
+  [c3] 需要：需要交代她为什么接受这一个月就是终点，并从阻止熄灯转为愿意由自己来完成熄灯。
+  [c10] 需要：需要出现一个让他对自身去留产生动摇的时刻，并让这种动摇超过工作上的考量。
+observed: |-
+  [c1] 世界.world：规划图原件被烧，港务局要重测，工期推迟一个月。 → 三十天到期，灯塔熄灭。（plausible）
+  [c2] linxia.knows：工期推迟了。 → 灯塔今晚熄灭。（plausible）
+  [c3] linxia.wants：灯塔多亮一个月。 → 亲手关掉它。（stretch）
+  [c4] linxia.feels：后怕，但不后悔。 → 平静的悲伤。（plausible）
+  [c5] linxia.location：灯塔 → 灯室（plausible）
+  [c6] shenyan.knows：是林夏烧的图纸。；工期推迟一个月。 → 灯塔今晚熄灭。（plausible）
+  [c7] shenyan.wants：替她瞒下来。 → 陪她看最后一次。（plausible）
+  [c8] shenyan.feels：矛盾。 → 说不清。（plausible）
+  [c9] shenyan.location：邮局 → 灯室（plausible）
+  [c10] shenyan.relationships：站在她这边了。 → 想留下来。（stretch）
+evidence:
+  - quote: 亲手关掉它。
+    rule: linxia.h1
+    direction: opposite
+    expected: 需要：需要交代她为什么接受这一个月就是终点，并从阻止熄灯转为愿意由自己来完成熄灯。
+    note: 牵强（linxia · wants：「灯塔多亮一个月。」→「亲手关掉它。」）她的首要决策规则是让灯塔继续亮下去，从争取延期转为主动亲手关灯，方向相反，文本里还没有交代转折的理由。
+    weight: 1
+    verified: true
+  - quote: 想留下来。
+    rule: shenyan.h1
+    direction: opposite
+    expected: 需要：需要出现一个让他对自身去留产生动摇的时刻，并让这种动摇超过工作上的考量。
+    note: 牵强（shenyan · relationships：「站在她这边了。」→「想留下来。」）他受雇于港务局，决策先看工期，又不表露好感；从站在她这边跳到想为她留下，跨度大，文本里还没有铺垫。
+    weight: 1
+    verified: true
+suggestion: 把「情节概述（新增一句）」改成「补一句交代林夏为何从想让灯多亮一个月转为愿意亲手关掉它，只写出她做这个决定的理由，不触及母亲海难的真相。」
+samples:
+  n: 3
+  scores:
+    - 49
+    - 49
+    - 28
+  failed: 0
+status: open
+notes:
+  - 这条边还没有情节概述：只按两端状态判断，缺原因的变化会显得牵强
+inputs:
+  acceptances:linxia@4: 4f53cda18c2baa0c
+  acceptances:shenyan@4: 4f53cda18c2baa0c
+  profile:linxia: a8a906d8177e19f5
+  profile:shenyan: a024a93347e95651
+  project-unknowns: 27c334cf5fe8f9d5
+  snapshot:n6: 4f3b202085825233
+  snapshot:n8: 246a732a76ca9d27
+  summary:e-n6-n8: e3b0c44298fc1c14
+  world-rules: 5b066caa9a73196f
+at: 2026-10-16T11:05:07.096Z
+history:
+  - at: 2026-10-16T11:05:07.096Z
+    action: run
+    score: 49

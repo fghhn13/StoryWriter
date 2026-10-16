@@ -39,6 +39,7 @@ import {
   revokeAcceptance,
   saveBridge,
 } from "@sw/ops";
+import { type Background, graphRoutes } from "./graph-api";
 import { buildView } from "./view";
 
 export type ContextFactory = (p: Project, role: "gen" | "check") => LlmContext;
@@ -65,6 +66,9 @@ function defaultContexts(recordings?: string): ContextFactory {
       recordings,
     });
 }
+
+const ALLOWED_ORIGIN = /^(tauri:\/\/localhost|https?:\/\/tauri\.localhost|http:\/\/(localhost|127\.0\.0\.1):\d+)$/;
+const isSameOrigin = (origin: string, req: http.IncomingMessage) => origin === `http://${req.headers.host}`;
 
 class HttpError extends Error {
   constructor(
@@ -112,8 +116,21 @@ export async function startServer(opts: ServerOptions) {
     return { calls: t.calls, replayed: t.replayed, tokens: t.tokens, seconds: Math.round(t.seconds) };
   };
 
+  /** Long work (model calls) runs detached: the request returns a job id, the end goes out as an event. */
+  const background: Background = (what, run) => {
+    const job = ++jobSeq;
+    jobs.set(job, what);
+    broadcast("job", { id: job, state: "start", what });
+    run((msg) => broadcast("progress", { id: job, msg }))
+      .then((result) => broadcast("job", { id: job, state: "end", ok: true, what, result }))
+      .catch((e: unknown) => broadcast("job", { id: job, state: "end", ok: false, what, error: (e as Error).message }))
+      .finally(() => jobs.delete(job));
+    return { job };
+  };
+
   // ---- routes: [method, pattern, handler]; (\w…) groups become params
   const routes: [string, RegExp, Handler][] = [
+    ...graphRoutes({ contexts, background, root }),
     ["GET", /^\/api\/project$/, ({ p }) => buildView(p)],
     ["GET", /^\/api\/export\/(manuscript|report|harvest)$/, ({ p, params }) => {
       if (params[0] === "manuscript") return exportManuscript(p);
@@ -213,6 +230,18 @@ export async function startServer(opts: ServerOptions) {
   ];
 
   async function api(req: http.IncomingMessage, res: http.ServerResponse, url: URL) {
+    // the Tauri window (and its dev server) is another origin; nothing else may call in (D-066)
+    const origin = req.headers.origin;
+    if (origin && ALLOWED_ORIGIN.test(origin)) {
+      res.setHeader("Access-Control-Allow-Origin", origin);
+      res.setHeader("Vary", "Origin");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+      res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    } else if (origin && !isSameOrigin(origin, req)) {
+      res.writeHead(403, { "Content-Type": "application/json" }).end(JSON.stringify({ error: `origin not allowed: ${origin}` }));
+      return;
+    }
+    if (req.method === "OPTIONS") return void res.writeHead(204).end();
     if (url.pathname === "/api/events") {
       res.writeHead(200, { "Content-Type": "text/event-stream", "Cache-Control": "no-cache", Connection: "keep-alive" });
       res.write(`event: hello\ndata: ${JSON.stringify({ jobs: [...jobs.values()] })}\n\n`);
@@ -238,7 +267,7 @@ export async function startServer(opts: ServerOptions) {
         const out = await handler({ p: loadProject(root), body, params: m.slice(1), say });
         send(200, out);
       } catch (e) {
-        const status = e instanceof HttpError ? e.status : 400;
+        const status = e instanceof HttpError ? e.status : ((e as { status?: number }).status ?? 400);
         send(status, { error: (e as Error).message });
       } finally {
         if (jobs.delete(job)) broadcast("job", { id: job, state: "end" });

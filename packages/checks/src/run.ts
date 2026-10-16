@@ -3,10 +3,12 @@ import {
   type Project,
   type Snapshot,
   anchorEntries,
+  ancestors,
   involvedCharacters,
   normalizeEntries,
   profileById,
-  stateAt,
+  stateFor,
+  worldRules,
 } from "@sw/core";
 import type { LlmContext } from "@sw/llm";
 import { checkAxisA } from "./axis-a";
@@ -45,11 +47,13 @@ export function unknownScope(p: Project, characters: string[]): ScopedUnknown[] 
   return scope;
 }
 
-function priorArrivals(p: Project, t: number): string[] {
+function priorArrivals(p: Project, t: number, from?: string): string[] {
   const snaps = new Map(p.snapshots.map((s) => [s.value.id, s.value]));
+  // graph mode: only edges that end upstream of the start node (D-059)
+  const upstream = p.config.mode === "graph" && from ? new Set([from, ...ancestors(from, p.bridges.map((b) => b.value))]) : undefined;
   return p.bridges
     .map((b) => b.value)
-    .filter((b) => b.status === "locked" && b.derived_snapshot && (snaps.get(b.to)?.t ?? Infinity) <= t)
+    .filter((b) => b.status === "locked" && b.derived_snapshot && (upstream ? upstream.has(b.to) : (snaps.get(b.to)?.t ?? Infinity) <= t))
     .map((b) => {
       const d = b.derived_snapshot!;
       const chars = Object.entries(d.char_states).map(([c, s]) => `${c} 知道：${s.knows.join("；") || "—"}；想要：${s.wants.join("；") || "—"}`);
@@ -71,7 +75,7 @@ export async function runTextChecks(p: Project, ctx: LlmContext, input: RunInput
   const ids = profiles.map((pr) => pr.id);
   const n = input.n ?? p.config.sampling;
   const axes = input.axes ?? ["A", "B", "C"];
-  const states = ids.map((id) => stateAt(p, id, from.t));
+  const states = ids.map((id) => stateFor(p, id, from));
   const scope = unknownScope(p, ids);
   const say = input.onProgress ?? (() => {});
 
@@ -88,10 +92,11 @@ export async function runTextChecks(p: Project, ctx: LlmContext, input: RunInput
     results.push(
       await checkAxisB(ctx, {
         text: input.text,
-        worldFacts: from.world_facts,
+        // graph mode: project world rules are true everywhere (D-064)
+        worldFacts: [...from.world_facts, ...worldRules(p.config.world_rules).map((w) => `［世界规则 ${w.id}］${w.text}`)],
         profiles,
         states,
-        prior: priorArrivals(p, from.t),
+        prior: priorArrivals(p, from.t, from.id),
         unknowns: renderUnknowns(scope),
         n,
       }),

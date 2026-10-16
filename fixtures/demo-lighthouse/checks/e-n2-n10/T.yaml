@@ -1,0 +1,82 @@
+id: e-n2-n10.T
+target: e-n2-n10
+target_kind: bridge
+axis: T
+score: 86
+confidence: 0.88
+prediction: |-
+  [c2] 需要：她得有一个看得见的理由，相信交给沈砚比自己守更能让灯亮下去，或者有让她自己守不了的原因。
+  [c3] 需要：中间需要有一件让她觉得灯的事暂时有了着落的事。
+  [c4] 需要：中间需要一次或多次让她亲眼确认沈砚可靠的经历，而且信任的程度应该是逐步建立的。
+  [c7] 需要：需要交代钥匙为什么由她来交，以及这一步和父亲之间是什么关系。
+observed: |-
+  [c1] linxia.knows：来了个港务局的测绘员。 → 把钥匙给了沈砚。（plausible）
+  [c2] linxia.wants：弄清楚他来干什么。 → 让沈砚替她守灯。（stretch）
+  [c3] linxia.feels：警惕。 → 放松。（stretch）
+  [c4] linxia.relationships：shenyan——外来者，不可信。 → shenyan——完全信任。（implausible）
+  [c5] shenyan.knows：灯塔还有二十几天熄灭。；看守人有个女儿。 → 拿到了灯塔钥匙。（plausible）
+  [c6] shenyan.feels：平静，有点冷。 → 意外。（plausible）
+  [c7] 世界.world：沈砚坐最后一班渡船上岛，住在邮局楼上。 → 灯塔钥匙在沈砚手里。（stretch）
+evidence:
+  - quote: 让沈砚替她守灯。
+    rule: linxia.u2
+    rule_text: 她最终会不会离开小镇。
+    direction: opposite
+    expected: 这条留白应保持未答
+    note: 强暗示：“替她守灯”可能被读者理解成她将不在岛上，从而暗示她离不离开小镇这个留白。请作者确认这是不是有意为之。
+    weight: 2
+    verified: true
+  - quote: 让沈砚替她守灯。
+    rule: linxia.h1
+    direction: opposite
+    expected: 需要：她得有一个看得见的理由，相信交给沈砚比自己守更能让灯亮下去，或者有让她自己守不了的原因。
+    note: 牵强（linxia · wants：「弄清楚他来干什么。」→「让沈砚替她守灯。」）她的首要判断是灯能不能继续亮。按档案，沈砚受雇于港务局，而灯塔停拨后必须熄灯。把守灯交给他，从文本上看不出对灯继续亮有什么好处，起点那个“他来干什么”的疑问也没有交代解决。
+    weight: 1
+    verified: true
+  - quote: 放松。
+    rule: linxia.h1
+    direction: opposite
+    expected: 需要：中间需要有一件让她觉得灯的事暂时有了着落的事。
+    note: 牵强（linxia · feels：「警惕。」→「放松。」）灯塔还有二十几天就要熄灭，这个威胁在两端状态里都没有解除。她把灯交给一个刚认识的外来者后反而放松，缺少依据。
+    weight: 1
+    verified: true
+  - quote: shenyan——完全信任。
+    rule: linxia.t3
+    direction: opposite
+    expected: 需要：中间需要一次或多次让她亲眼确认沈砚可靠的经历，而且信任的程度应该是逐步建立的。
+    note: 说不通（linxia · relationships：「shenyan——外来者，不可信。」→「shenyan——完全信任。」）她的人格是不信任外来者，起点也明确写着“不可信”。没有概述交代原因，一步跳到“完全信任”，和人格相反。
+    weight: 3
+    verified: true
+  - quote: 灯塔钥匙在沈砚手里。
+    rule: linxia.h2
+    direction: opposite
+    expected: 需要：需要交代钥匙为什么由她来交，以及这一步和父亲之间是什么关系。
+    note: 牵强（世界 · world：「沈砚坐最后一班渡船上岛，住在邮局楼上。」→「灯塔钥匙在沈砚手里。」）灯塔是父亲在守。她把钥匙交给外人，触及“替父亲还是替自己做决定”这一问，文本里没有交代父亲那边的情况，也没说她为什么能做这个主。
+    weight: 1
+    verified: true
+suggestion: 把「终点 · linxia.relationships」改成「把“shenyan——完全信任。”改成有保留的信任，例如“shenyan——仍是外来者，但这件事愿意托付他。”，避免和 linxia.t3 正面冲突。」
+samples:
+  n: 3
+  scores:
+    - 86
+    - 90
+    - 86
+  failed: 0
+status: open
+notes:
+  - 这条边还没有情节概述：只按两端状态判断，缺原因的变化会显得牵强
+inputs:
+  acceptances:linxia@1: 4f53cda18c2baa0c
+  acceptances:shenyan@1: 4f53cda18c2baa0c
+  profile:linxia: a8a906d8177e19f5
+  profile:shenyan: a024a93347e95651
+  project-unknowns: 27c334cf5fe8f9d5
+  snapshot:n10: 810f29cf1c0db628
+  snapshot:n2: 846b3527c86b3ede
+  summary:e-n2-n10: e3b0c44298fc1c14
+  world-rules: 5b066caa9a73196f
+at: 2026-10-16T10:59:23.687Z
+history:
+  - at: 2026-10-16T10:59:23.687Z
+    action: run
+    score: 86

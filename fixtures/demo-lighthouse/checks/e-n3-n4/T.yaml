@@ -1,0 +1,68 @@
+id: e-n3-n4.T
+target: e-n3-n4
+target_kind: bridge
+axis: T
+score: 63
+confidence: 0.6
+prediction: |-
+  [c3] 需要：她需要看到能把沈砚和这份规划直接联系起来的东西，才能确认他一直知情。
+  [c8] 需要：需要交代沈砚当时为什么也在邮局楼上。
+  [c9] 需要：需要沈砚在场，或通过其他方式得知林夏看过规划图。
+observed: |-
+  [c1] 世界.world：— → 新港规划图上，灯塔所在的岬角被标为拆除区。（plausible）
+  [c2] linxia.knows：沈砚测的是北湾水深。 → 新港建成后灯塔会被拆掉。（plausible）
+  [c3] linxia.knows：沈砚测的是北湾水深。 → 沈砚一直知道这件事。（stretch）
+  [c4] linxia.wants：攒钱，也想知道他在测什么。 → 阻止新港。（plausible）
+  [c5] linxia.feels：好奇压过了警惕。 → 被骗的愤怒。（plausible）
+  [c6] linxia.relationships：比想象中守规矩，还是不信他。 → 骗子。（plausible）
+  [c7] linxia.location：北湾礁石 → 邮局楼上（plausible）
+  [c8] shenyan.location：北湾礁石 → 邮局楼上（stretch）
+  [c9] shenyan.knows：北湾水深够停大船。 → 林夏看到了图纸。（stretch）
+  [c10] shenyan.wants：按期完成测绘。；多和她说几句话。 → 向她解释，又不知道怎么解释。（plausible）
+  [c11] shenyan.feels：轻松。 → 慌乱。（plausible）
+  [c12] shenyan.relationships：在意，不表露。 → 怕失去她的信任。（plausible）
+evidence:
+  - quote: 沈砚一直知道这件事。
+    rule: linxia.t3
+    direction: opposite
+    expected: 需要：她需要看到能把沈砚和这份规划直接联系起来的东西，才能确认他一直知情。
+    note: 牵强（linxia · knows：「沈砚测的是北湾水深。」→「沈砚一直知道这件事。」）她不信任外来者，确实容易往坏处想；但概述只说她看到了图，图本身不能证明沈砚早就知道拆除计划。
+    weight: 1
+    verified: true
+  - quote: 邮局楼上
+    direction: opposite
+    expected: 需要：需要交代沈砚当时为什么也在邮局楼上。
+    note: 牵强（shenyan · location：「北湾礁石」→「邮局楼上」）概述只写林夏去了邮局，没有说明沈砚为什么也在那里。
+    weight: 1
+    verified: true
+  - quote: 林夏看到了图纸。
+    direction: opposite
+    expected: 需要：需要沈砚在场，或通过其他方式得知林夏看过规划图。
+    note: 牵强（shenyan · knows：「北湾水深够停大船。」→「林夏看到了图纸。」）要知道她看到了图纸，他得在场或被人告知，概述两样都没写。
+    weight: 1
+    verified: true
+suggestion: 把「情节概述 · 林夏去邮局送测绘记录，看到了摊在桌上的规划图。」改成「补半句交代：沈砚当时也在邮局楼上，并且规划图上有能让林夏看出他参与其中的痕迹。」
+samples:
+  n: 3
+  scores:
+    - 63
+    - 63
+    - 49
+  failed: 0
+status: open
+notes: []
+inputs:
+  acceptances:linxia@2: 4f53cda18c2baa0c
+  acceptances:shenyan@2: 4f53cda18c2baa0c
+  profile:linxia: a8a906d8177e19f5
+  profile:shenyan: a024a93347e95651
+  project-unknowns: 27c334cf5fe8f9d5
+  snapshot:n3: d1b1c5acd52bf0e6
+  snapshot:n4: 5ba3d7dde65e6be6
+  summary:e-n3-n4: 590cf98550dc6c73
+  world-rules: 5b066caa9a73196f
+at: 2026-10-16T11:02:41.286Z
+history:
+  - at: 2026-10-16T11:02:41.286Z
+    action: run
+    score: 63

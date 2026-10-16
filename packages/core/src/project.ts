@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import type { z } from "zod";
 import { normalizeEntries } from "./entries";
+import { applyGraphTime } from "./graph";
 import { parseMarkdownFile, parseYamlFile, type YamlSource } from "./frontmatter";
 import { DIRS, PROJECT_FILE, REF_SUFFIX, readText, toPosix } from "./paths";
 import {
@@ -186,6 +187,21 @@ export function loadProject(rootDir: string): Project {
   const acceptances = compact(
     listFiles(path.join(root, DIRS.acceptances), (n) => /\.ya?ml$/.test(n)).map((f) => loadYaml(f, AcceptanceDoc)),
   );
+
+  if (config.mode === "graph") {
+    // t comes from the edges, not the files (D-058)
+    const info = applyGraphTime(snapshots, bridges);
+    for (const id of info.cyclic) {
+      const s = snapshots.find((x) => x.value.id === id)!;
+      issues.push({ level: "error", file: s.file, message: `快照 ${id} 在一个环上：图模式下边不能绕回去` });
+    }
+    // an acceptance made on an edge happens at that edge's start (D-059)
+    const at = new Map(snapshots.map((s) => [s.value.id, s.value.t]));
+    for (const a of acceptances) {
+      const e = a.value.on ? bridges.find((b) => b.value.id === a.value.on) : undefined;
+      if (e) a.value.t = at.get(e.value.from) ?? a.value.t;
+    }
+  }
 
   return { root, config, configSource, profiles, snapshots, branchSnapshots, bridges, threads, checks, acceptances, issues, unreadableIds };
 }

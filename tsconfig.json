@@ -17,6 +17,7 @@
     "packages/*/test"
   ],
   "exclude": [
-    "packages/canvas"
+    "packages/canvas",
+    "packages/desktop"
   ]
 }

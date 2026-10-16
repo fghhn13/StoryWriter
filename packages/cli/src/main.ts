@@ -226,10 +226,11 @@ program
   .option("--port <n>", "端口", "4173")
   .option("--host <h>", "监听地址（默认只在本机）", "127.0.0.1")
   .option("--recordings <dir>", "录制 / 回放目录（SW_LLM_MODE=record|replay 时用）")
+  .option("--no-ui", "只提供 /api（Tauri 桌面窗口用）")
   .description("打开画布（本地网页）；在编辑器里改文件，画布会自动刷新")
-  .action(async (opts: { port: string; host: string; recordings?: string }, cmd: Command) => {
+  .action(async (opts: { port: string; host: string; recordings?: string; ui: boolean }, cmd: Command) => {
     const { startServer } = await import("@sw/server");
-    const s = await startServer({ root: projectDir(cmd), port: Number(opts.port), host: opts.host, recordings: opts.recordings ? path.resolve(opts.recordings) : undefined });
+    const s = await startServer({ root: projectDir(cmd), port: Number(opts.port), host: opts.host, ui: opts.ui, recordings: opts.recordings ? path.resolve(opts.recordings) : undefined });
     console.log(`画布：${s.url}
 项目：${projectDir(cmd)}
 Ctrl+C 退出`);

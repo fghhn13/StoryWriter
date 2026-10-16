@@ -4,7 +4,7 @@ import type { DiffRow } from "./axis-d";
 import { type CheckResult, levelOf } from "./common";
 import type { RunResult } from "./run";
 
-export const AXIS_NAME = { A: "人物偏差", B: "连续性偏差", C: "留白侵入", D: "到达偏差", E: "伏笔偏差", F: "间距" } as const;
+export const AXIS_NAME = { A: "人物偏差", B: "连续性偏差", C: "留白侵入", D: "到达偏差", E: "伏笔偏差", F: "间距", T: "转变合理性", K: "约束冲突" } as const;
 const LEVEL_MARK = { high: "🔴 高亮", warn: "🟡 提醒", ok: "🟢" } as const;
 
 const cell = (s?: string) => (s ?? "—").replace(/\|/g, "\\|").replace(/\n/g, " ");

@@ -1,0 +1,8 @@
+nodes:
+  n1: { x: 0, y: 120 }
+  n2: { x: 380, y: 0 }
+  n3: { x: 380, y: 260 }
+routes:
+  - id: r1
+    name: 主线
+    nodes: [n1, n2]

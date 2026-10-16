@@ -1,0 +1,32 @@
+id: e-n2-n3.C
+target: e-n2-n3
+target_kind: bridge
+axis: C
+score: 0
+confidence: 1
+prediction: 所有留白保持未答
+observed: ""
+evidence: []
+suggestion: ""
+samples:
+  n: 3
+  scores:
+    - 0
+    - 0
+    - 0
+  failed: 0
+status: open
+notes: []
+inputs:
+  acceptances:linxia@1: 4f53cda18c2baa0c
+  acceptances:shenyan@1: 4f53cda18c2baa0c
+  profile:linxia: a8a906d8177e19f5
+  profile:shenyan: a024a93347e95651
+  project-unknowns: 27c334cf5fe8f9d5
+  snapshot:n2: 846b3527c86b3ede
+  text:e-n2-n3: 3fbdf6af9b211690
+at: 2026-10-16T11:07:19.271Z
+history:
+  - at: 2026-10-16T11:07:19.271Z
+    action: run
+    score: 0

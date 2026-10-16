@@ -1,5 +1,6 @@
 // Character state indexed by story time (spec §3.7, §4.6).
 import { anchorEntries } from "./entries";
+import { ancestors } from "./graph";
 import type { Project } from "./project";
 import { type Acceptance, type CharState, ENDPOINT_STATUSES, type Profile, type Snapshot } from "./schema";
 
@@ -32,6 +33,40 @@ export function stateAt(p: Project, character: string, t: number): StateAt {
     deltas: accepted.filter((a) => a.t < t),
     turns: accepted.filter((a) => a.t <= t),
   };
+}
+
+/**
+ * Graph mode (D-059): the node's own state if it has this character, else the nearest ancestor's.
+ * Deltas are acceptances made on edges upstream of the node; turns add those on edges leaving it.
+ */
+export function stateAtNode(p: Project, character: string, nodeId: string): StateAt {
+  const lane = laneOfProfile(p, character);
+  const edges = p.bridges.map((b) => b.value);
+  const byId = new Map(p.snapshots.map((s) => [s.value.id, s.value]));
+  const chain = [nodeId, ...ancestors(nodeId, edges)];
+  const snap = chain.map((id) => byId.get(id)).find((s) => s?.char_states[lane]);
+  const upstream = new Set(chain);
+  const edgeOf = new Map(edges.map((e) => [e.id, e]));
+  const accepted = p.acceptances.map((a) => a.value).filter((a) => a.character === character);
+  const on = (a: Acceptance) => (a.on ? edgeOf.get(a.on) : undefined);
+  const deltas = accepted.filter((a) => {
+    const e = on(a);
+    return e ? upstream.has(e.to) : false;
+  });
+  const leaving = accepted.filter((a) => on(a)?.from === nodeId);
+  return {
+    character,
+    t: byId.get(nodeId)?.t ?? 0,
+    snapshot: snap,
+    state: snap?.char_states[lane],
+    deltas,
+    turns: [...deltas, ...leaving],
+  };
+}
+
+/** The state a check starting at `from` should see, in either mode. */
+export function stateFor(p: Project, character: string, from: Snapshot): StateAt {
+  return p.config.mode === "graph" ? stateAtNode(p, character, from.id) : stateAt(p, character, from.t);
 }
 
 /** Human-readable state for prompts. Free text in, free text out (spec §12). */

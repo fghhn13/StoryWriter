@@ -1,0 +1,46 @@
+id: e-n3-n5.T
+target: e-n3-n5
+target_kind: bridge
+axis: T
+score: 0
+confidence: 0.19
+prediction: ""
+observed: |-
+  [c1] 世界.world：— → 大雪封路，镇上的医生只能用电报问城里的医院。（plausible）
+  [c2] linxia.knows：沈砚测的是北湾水深。 → 父亲病得很重，出不了岛。（plausible）
+  [c3] linxia.wants：攒钱，也想知道他在测什么。 → 父亲活下来。；灯塔不能没人守。（plausible）
+  [c4] linxia.feels：好奇压过了警惕。 → 害怕。（plausible）
+  [c5] linxia.location：北湾礁石 → 灯塔（plausible）
+  [c6] linshouyi.knows：— → 自己守不动了。（plausible）
+  [c7] linshouyi.wants：— → 女儿别守这座灯。（plausible）
+  [c8] linshouyi.feels：— → 虚弱，内疚。（plausible）
+  [c9] linshouyi.relationships：— → 想说点什么，说不出口。（plausible）
+  [c10] linshouyi.location：— → 灯塔卧室（plausible）
+evidence: []
+suggestion: ""
+samples:
+  n: 3
+  scores:
+    - 28
+    - 0
+    - 0
+  failed: 0
+status: open
+notes: []
+inputs:
+  acceptances:linshouyi@2: 4f53cda18c2baa0c
+  acceptances:linxia@2: 4f53cda18c2baa0c
+  acceptances:shenyan@2: 4f53cda18c2baa0c
+  profile:linshouyi: 4495d1c4b6633e4d
+  profile:linxia: a8a906d8177e19f5
+  profile:shenyan: a024a93347e95651
+  project-unknowns: 27c334cf5fe8f9d5
+  snapshot:n3: d1b1c5acd52bf0e6
+  snapshot:n5: b2751f0d95da4e8d
+  summary:e-n3-n5: e0f6a6a93f18b119
+  world-rules: 5b066caa9a73196f
+at: 2026-10-16T11:03:17.677Z
+history:
+  - at: 2026-10-16T11:03:17.677Z
+    action: run
+    score: 0

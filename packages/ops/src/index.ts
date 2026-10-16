@@ -10,3 +10,5 @@ export * from "./dispose";
 export * from "./rerun";
 export * from "./export";
 export * from "./edit";
+export * from "./graph";
+export * from "./constraints";
